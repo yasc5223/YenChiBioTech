@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import DropdownHoverMenu from './DropdownHoverMenu';
-import '../App.css';
+import './Navbar.css';
 
 function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -14,7 +14,6 @@ function Navbar() {
     setSearchOpen((prev) => !prev);
   };
 
-  // 點外部自動關閉搜尋欄
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (searchRef.current && !searchRef.current.contains(e.target)) {
@@ -25,7 +24,6 @@ function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // 取得產品分類資料（扁平處理）
   useEffect(() => {
     fetch(`${baseUrl}/api/production`)
       .then(res => res.json())
@@ -46,7 +44,6 @@ function Navbar() {
 
   return (
     <>
-      {/* 第一層：Logo + 搜尋 */}
       <nav className="navbar navbar-dark bg-dark fixed-top">
         <div className="container d-flex justify-content-between align-items-center">
           <Link className="navbar-brand" to="/">YenChiBioTech</Link>
@@ -65,21 +62,13 @@ function Navbar() {
         </div>
       </nav>
 
-      {/* 第二層：分類列 */}
-      <div className="bg-light border-bottom sticky-top" style={{ top: '56px', zIndex: 1020 }}>
+      <div className="bg-light border-bottom sticky-top nav-secondary">
         <div className="container">
           <ul className="nav justify-content-center py-2">
             <li className="nav-item">
               <Link className="nav-link" to="/about">關於我們</Link>
             </li>
-
-            {/* 單層產品選單（扁平） */}
-            <DropdownHoverMenu
-              label="產品"
-              links={productLinks}
-            />
-
-            {/* 實驗委託固定選單 */}
+            <DropdownHoverMenu label="產品" links={productLinks} />
             <DropdownHoverMenu
               label="實驗委託"
               links={[
@@ -88,7 +77,6 @@ function Navbar() {
                 { to: "/services/slicing", label: "組織切片" },
               ]}
             />
-
             <li className="nav-item">
               <Link className="nav-link" to="/contact">聯絡我們</Link>
             </li>

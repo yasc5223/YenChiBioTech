@@ -1,12 +1,16 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import './Products.css';
 
-function Home() {
+const Products = () => {
+  const { sub } = useParams();
+
   return (
-    <div>
-      <h1>歡迎來到 YenChiBioTech</h1>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
+    <div className="products-page container mt-4">
+      <h2>{sub} 產品列表</h2>
+      {/* 可加上根據 sub 顯示對應清單 */}
     </div>
   );
-}
+};
 
-export default Home;
+export default Products;
