@@ -1,0 +1,10 @@
+.carousel-item {
+  height: 400px; /* 控制整個輪播區的高度 */
+  background-color: #f8f9fa; /* 可選：讓空白區看起來舒服 */
+}
+
+.carousel-item img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain; /* ⭐️ 重點：讓圖片完整顯示不裁切 */
+}
