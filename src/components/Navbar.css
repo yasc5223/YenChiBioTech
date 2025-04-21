@@ -12,20 +12,20 @@
   display: flex;
   align-items: center;
   position: relative;
+  width: 100%;
+  max-width: 400px;
 }
 
 .search-input {
-  width: 0;
-  opacity: 0;
-  transition: all 0.3s ease;
+  width: 100%;
+  opacity: 1;
   margin-left: 10px;
   padding: 5px 10px;
+  flex-grow: 1;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
-.search-input.open {
-  width: 200px;
-  opacity: 1;
-}
 
 .nav-link {
   padding: 0.5rem 1rem;
@@ -38,13 +38,14 @@
 }
 
 .dropdown-menu {
-  min-width: 200px;
+  min-width: 250px;
 }
 
 .dropdown-item {
   white-space: nowrap;
 }
-/* 新增以下樣式 */
+
+/* 子選單 label 樣式 */
 .sub-label {
   font-size: 0.8em;
   color: #6c757d;
@@ -61,12 +62,53 @@
   float: right;
 }
 
-/* 調整下拉選單寬度 */
-.dropdown-menu {
-  min-width: 250px;
-}
-
-/* 次級選單樣式 */
+/* 次級選單 */
 .dropdown-submenu .dropdown-menu {
   min-width: 200px;
+}
+
+/* ✅ 搜尋結果下拉 */
+.search-dropdown {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  z-index: 100;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden; /* ✅ 移除水平滾輪 */
+  word-wrap: break-word; /* ✅ 長字斷行 */
+  margin: 0;
+  padding: 0;
+}
+
+/* ✅ 搜尋結果列 */
+.search-dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333;
+  transition: background 0.2s;
+  display: flex;
+  flex-direction: column; /* ✅ 垂直排列 */
+  align-items: flex-start;
+}
+
+.search-dropdown-item:hover {
+  background: #f0f0f0;
+  color: #0d6efd;
+}
+
+/* ✅ 副路徑樣式 */
+.search-dropdown-path {
+  color: #aaa;
+  font-size: 0.88em;
+  margin-top: 2px;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  white-space: normal;
 }

@@ -1,32 +1,64 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import DropdownHoverMenu from './DropdownHoverMenu';
 import './Navbar.css';
 
 function Navbar() {
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const [productionLinks, setProductionLinks] = useState([]);
   const [serviceLinks, setServiceLinks] = useState([]);
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const searchRef = useRef(null);
+  const navigate = useNavigate();
 
-  const toggleSearch = () => {
-    setSearchOpen((prev) => !prev);
+  // 將 nested 結構展平成 {label, path, keywords}
+  function flattenLinks(links, path = []) {
+    let result = [];
+    links.forEach(link => {
+      if (link.submenu) {
+        result = result.concat(flattenLinks(link.submenu, [...path, link.label]));
+      } else {
+        const infoText = [
+          link.label,
+          link?.info?.ExternalTitle || '',
+          link?.info?.InternalTitle || '',
+          link?.info?.Description || ''
+        ].join(' ').toLowerCase();
+
+        result.push({
+          label: link.label,
+          path: `/products/${path.map(encodeURIComponent).join('/')}/${encodeURIComponent(link.label)}`,
+          keywords: infoText
+        });
+      }
+    });
+    return result;
+  }
+
+  useEffect(() => {
+    if (!searchText) {
+      setSearchResults([]);
+      return;
+    }
+    const allModels = flattenLinks(productionLinks);
+    const keyword = searchText.trim().toLowerCase();
+    const matched = allModels.filter(m =>
+      m.keywords.includes(keyword)
+    );
+    setSearchResults(matched);
+  }, [searchText, productionLinks]);
+
+  const handleSearchChange = (e) => setSearchText(e.target.value);
+
+  const handleResultClick = (path) => {
+    setSearchText('');
+    setSearchResults([]);
+    navigate(path);
   };
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (searchRef.current && !searchRef.current.contains(e.target)) {
-        setSearchOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  useEffect(() => {
-    // 處理 Production (產品) 資料
     const processProductionData = (data) => {
       return Object.entries(data).map(([mainCategory, items]) => {
         if (mainCategory === "蠟塊與切片") {
@@ -35,35 +67,30 @@ function Navbar() {
             to: "/products/wax-blocks"
           };
         }
-    
-        // 🛡️ filter 掉 Image
         const submenu = Object.entries(items)
           .filter(([subCategory]) => subCategory !== "Image")
           .map(([subCategory, models]) => {
             const modelItems = Object.entries(models)
-              .filter(([modelKey]) => modelKey !== "Image") // 🛡️ 再過濾一次
+              .filter(([modelKey]) => modelKey !== "Image")
               .map(([model, details]) => ({
                 label: model,
                 to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}/${encodeURIComponent(model)}`,
                 info: details.Information
               }));
-    
             return {
               label: subCategory,
               to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}`,
               submenu: modelItems
             };
           });
-    
         return {
           label: mainCategory,
           to: `/products/${encodeURIComponent(mainCategory)}`,
-          submenu: submenu
+          submenu
         };
       });
     };
 
-    // 處理 Services (實驗委託) 資料
     const processServiceData = () => ([
       {
         label: "病理組織代工",
@@ -83,19 +110,15 @@ function Navbar() {
         ]
       }
     ]);
-    
-    // 設定 Services 連結
+
     setServiceLinks(processServiceData());
 
-    // 實際使用時替換為以下 API 調用
-    
     fetch(`${baseUrl}/api/Production`)
       .then(res => res.json())
       .then(data => {
         setProductionLinks(processProductionData(data));
       })
       .catch(err => console.error('無法載入產品資料：', err));
-    
   }, [baseUrl]);
 
   return (
@@ -104,16 +127,38 @@ function Navbar() {
         <div className="container d-flex justify-content-between align-items-center">
           <Link className="navbar-brand" to="/">YenChiBioTech</Link>
           <div className="search-container" ref={searchRef}>
-            <FaSearch
-              onClick={toggleSearch}
-              style={{ color: 'white', cursor: 'pointer' }}
-            />
+            <FaSearch style={{ color: 'white', marginRight: '8px' }} />
             <input
               type="text"
-              className={`form-control search-input ${searchOpen ? 'open' : ''}`}
-              placeholder="搜尋..."
-              autoFocus={searchOpen}
+              className="form-control search-input"
+              placeholder="搜尋產品型號..."
+              value={searchText}
+              onChange={handleSearchChange}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && searchResults[0]) {
+                  handleResultClick(searchResults[0].path);
+                }
+              }}
             />
+            {searchText && searchResults.length > 0 && (
+              <ul className="search-dropdown">
+                {searchResults.map((result, i) => (
+                  <li key={i} className="search-dropdown-item" onClick={() => handleResultClick(result.path)}>
+                    {result.label}
+                    <span className="search-dropdown-path">
+                      {decodeURIComponent(
+                        result.path.replace(/^\/products\//, '').replace(/\//g, ' / ')
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {searchText && searchResults.length === 0 && (
+              <ul className="search-dropdown">
+                <li className="search-dropdown-item">查無產品</li>
+              </ul>
+            )}
           </div>
         </div>
       </nav>
@@ -124,14 +169,8 @@ function Navbar() {
             <li className="nav-item">
               <Link className="nav-link" to="/about">關於我們</Link>
             </li>
-            <DropdownHoverMenu 
-              label="產品" 
-              links={productionLinks}
-            />
-            <DropdownHoverMenu 
-              label="實驗委託" 
-              links={serviceLinks}
-            />
+            <DropdownHoverMenu label="產品" links={productionLinks} />
+            <DropdownHoverMenu label="實驗委託" links={serviceLinks} />
             <li className="nav-item">
               <Link className="nav-link" to="/contact">聯絡我們</Link>
             </li>
