@@ -1,0 +1,90 @@
+.main-preview-image {
+    width: 400px;
+    height: 500px;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    transition: opacity 0.3s ease;
+    background-color: #fff;
+  }
+  
+  .fade-out {
+    opacity: 0.2;
+  }
+  .fade-in {
+    opacity: 1;
+  }
+  
+  .thumbnail-img {
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border 0.2s ease;
+  }
+  
+  .thumbnail-img.active,
+  .thumbnail-img:hover {
+    border-color: #0d6efd;
+  }
+  
+  /* markdown styling */
+  .markdown-h2 {
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+  
+  .markdown-p {
+    margin-bottom: 0.5rem;
+  }
+  
+  .markdown-ul {
+    padding-left: 1.2rem;
+    margin-top: 0.5rem;
+  }
+  
+  .markdown-li {
+    margin-bottom: 0.3rem;
+  }
+  
+  .markdown-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .markdown-th,
+  .markdown-td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .markdown-th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+  }
+  .product-info {
+    padding-left: 10px;
+    line-height: 1.6;
+  }
+  
+  .product-info h3 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .product-info .product-subtitle {
+    font-size: 0.95rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+    white-space: pre-wrap;
+  }
+  
+  .product-info p {
+    margin-bottom: 0.5rem;
+  }
+  

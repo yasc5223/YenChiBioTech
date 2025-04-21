@@ -29,39 +29,32 @@ function Navbar() {
     // 處理 Production (產品) 資料
     const processProductionData = (data) => {
       return Object.entries(data).map(([mainCategory, items]) => {
-        // 特別處理蠟塊與切片 (沒有型號結構)
         if (mainCategory === "蠟塊與切片") {
           return {
             label: mainCategory,
             to: "/products/wax-blocks"
           };
         }
-
-        const submenu = Object.entries(items).map(([subCategory, models]) => {
-          // 檢查是否有 list 屬性 (舊結構兼容)
-          if (subCategory === "list") {
-            return models.map(model => ({
-              label: model,
-              to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(model)}`
-            }));
-          }
-
-          // 處理新結構的型號數據
-          const modelItems = Object.entries(models).map(([model, details]) => {
+    
+        // 🛡️ filter 掉 Image
+        const submenu = Object.entries(items)
+          .filter(([subCategory]) => subCategory !== "Image")
+          .map(([subCategory, models]) => {
+            const modelItems = Object.entries(models)
+              .filter(([modelKey]) => modelKey !== "Image") // 🛡️ 再過濾一次
+              .map(([model, details]) => ({
+                label: model,
+                to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}/${encodeURIComponent(model)}`,
+                info: details.Information
+              }));
+    
             return {
-              label: model,
-              to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}/${encodeURIComponent(model)}`,
-              info: details.Information
+              label: subCategory,
+              to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}`,
+              submenu: modelItems
             };
-          }).flat(); // 展平因分號拆分產生的陣列
-
-          return {
-            label: subCategory,
-            to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}`,
-            submenu: modelItems
-          };
-        }).flat(); // 展平因 list 兼容處理產生的陣列
-
+          });
+    
         return {
           label: mainCategory,
           to: `/products/${encodeURIComponent(mainCategory)}`,

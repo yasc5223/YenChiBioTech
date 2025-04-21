@@ -9,6 +9,7 @@ import Services from './pages/Services';
 import Products from './pages/Products';
 import Contact from './pages/Contact';
 import './transition.css';
+import ProductDetail from './pages/ProductDetail';
 
 function App() {
   const location = useLocation();
@@ -53,6 +54,7 @@ function App() {
                   <Route path="/services" element={<Services />} />
                   <Route path="/products/*" element={<Products />} />
                   <Route path="/contact" element={<Contact />} />
+                  <Route path="/products/:cat/:sub/:model" element={<ProductDetail />} />
                 </Routes>
               </div>
             </CSSTransition>
