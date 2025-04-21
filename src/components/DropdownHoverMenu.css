@@ -62,4 +62,20 @@
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
+}.dropdown-item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.arrow-icon {
+  font-size: 1rem;
+  color: #999;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-item:hover .arrow-icon {
+  color: #0d6efd;
+  transform: translateX(2px);
 }
