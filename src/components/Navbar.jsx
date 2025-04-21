@@ -33,7 +33,7 @@ function Navbar() {
         if (mainCategory === "蠟塊與切片") {
           return {
             label: mainCategory,
-            to: "/production/wax-blocks"
+            to: "/products/wax-blocks"
           };
         }
 
@@ -42,7 +42,7 @@ function Navbar() {
           if (subCategory === "list") {
             return models.map(model => ({
               label: model,
-              to: `/production/${encodeURIComponent(mainCategory)}/${encodeURIComponent(model)}`
+              to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(model)}`
             }));
           }
 
@@ -50,21 +50,21 @@ function Navbar() {
           const modelItems = Object.entries(models).map(([model, details]) => {
             return {
               label: model,
-              to: `/production/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}/${encodeURIComponent(model)}`,
+              to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}/${encodeURIComponent(model)}`,
               info: details.Information
             };
           }).flat(); // 展平因分號拆分產生的陣列
 
           return {
             label: subCategory,
-            to: `/production/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}`,
+            to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}`,
             submenu: modelItems
           };
         }).flat(); // 展平因 list 兼容處理產生的陣列
 
         return {
           label: mainCategory,
-          to: `/production/${encodeURIComponent(mainCategory)}`,
+          to: `/products/${encodeURIComponent(mainCategory)}`,
           submenu: submenu
         };
       });
@@ -132,13 +132,11 @@ function Navbar() {
               <Link className="nav-link" to="/about">關於我們</Link>
             </li>
             <DropdownHoverMenu 
-              label="Production" 
-              subLabel="產品"
+              label="產品" 
               links={productionLinks}
             />
             <DropdownHoverMenu 
-              label="Services" 
-              subLabel="實驗委託"
+              label="實驗委託" 
               links={serviceLinks}
             />
             <li className="nav-item">
