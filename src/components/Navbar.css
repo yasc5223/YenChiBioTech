@@ -1,49 +1,72 @@
-
 .navbar {
-    font-size: 1rem;
-  }
-  
-  .nav-link {
-    font-size: 0.95rem;
-    font-weight: 500;
-  }
-  
-  .search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-  
-  .search-container svg {
-    z-index: 1060;
-  }
-  
-  .search-input {
-    position: absolute;
-    top: 0;
-    right: 30px;
-    width: 0;
-    opacity: 0;
-    transform: translateX(20px);
-    transition: all 0.3s ease;
-    height: 35px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    z-index: 1050;
-    background-color: white;
-    pointer-events: none;
-  }
-  
-  .search-input.open {
-    width: 200px;
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-  }
-  
-  .nav-secondary {
-    top: 56px;
-    z-index: 1020;
-  }
-  
+  padding: 0.5rem 1rem;
+  height: 60px;
+}
+
+.nav-secondary {
+  top: 60px;
+  z-index: 1020;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search-input {
+  width: 0;
+  opacity: 0;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+  padding: 5px 10px;
+}
+
+.search-input.open {
+  width: 200px;
+  opacity: 1;
+}
+
+.nav-link {
+  padding: 0.5rem 1rem;
+  color: #343a40 !important;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #007bff !important;
+}
+
+.dropdown-menu {
+  min-width: 200px;
+}
+
+.dropdown-item {
+  white-space: nowrap;
+}
+/* 新增以下樣式 */
+.sub-label {
+  font-size: 0.8em;
+  color: #6c757d;
+  margin-left: 5px;
+  font-weight: normal;
+}
+
+.nav-link.dropdown-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-item .arrow {
+  float: right;
+}
+
+/* 調整下拉選單寬度 */
+.dropdown-menu {
+  min-width: 250px;
+}
+
+/* 次級選單樣式 */
+.dropdown-submenu .dropdown-menu {
+  min-width: 200px;
+}

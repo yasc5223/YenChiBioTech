@@ -1,10 +1,24 @@
-.carousel-wrapper .carousel-item {
-  height: 100px;
-  background-color: #f8f9fa;
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
-.carousel-wrapper .carousel-item img {
+.carousel, .carousel-inner, .carousel-item {
   height: 100%;
-  width: 100%;
-  object-fit: contain;
+}
+
+.image-wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa; /* 可選：背景色，當圖片有透明部分時顯示 */
+}
+
+.carousel-image {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: cover; /* 保持圖片比例，完整顯示圖片 */
+  margin: 0 auto;
 }
