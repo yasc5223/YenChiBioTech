@@ -31,33 +31,13 @@ function DropdownHoverMenu({ label, links }) {
                   </Link>
                   <div className="dropdown-menu">
                     {link.submenu.map((subLink, subIndex) => (
-                      <React.Fragment key={subIndex}>
-                        {hasSubmenu(subLink) ? (
-                          <div className="dropdown-submenu">
-                            <Link className="dropdown-item" to={subLink.to}>
-                              <span className="dropdown-item-content">
-                                <span>{subLink.label}</span>
-                                <FiChevronRight className="arrow-icon" />
-                              </span>
-                            </Link>
-                            <div className="dropdown-menu">
-                              {subLink.submenu.map((subSubLink, subSubIndex) => (
-                                <Link
-                                  key={subSubIndex}
-                                  className="dropdown-item"
-                                  to={subSubLink.to}
-                                >
-                                  {subSubLink.label}
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                        ) : (
-                          <Link className="dropdown-item" to={subLink.to}>
-                            {subLink.label}
-                          </Link>
-                        )}
-                      </React.Fragment>
+                      <Link
+                        key={subIndex}
+                        className="dropdown-item"
+                        to={subLink.to}
+                      >
+                        {subLink.label}
+                      </Link>
                     ))}
                   </div>
                 </>
