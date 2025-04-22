@@ -1,55 +1,87 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ContactForm from '../components/ContactForm';
+import './Contact.css';
 
-function Home() {
+const Contact = () => {
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    unit: '',
+    phone: '',
+    message: '',
+  });
+
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem('inquiryCart') || '[]');
+    setCart(stored);
+  }, []);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    const { name, unit, phone, email, message } = form;
+
+    if (!name || !unit || !phone || !email) {
+      alert('請完整填寫所有欄位');
+      return;
+    }
+
+    if (cart.length === 0 && !message.trim()) {
+      alert('請加入商品或填寫備註內容');
+      return;
+    }
+
+    const payload = {
+      name, unit, phone, email, message,
+      items: cart,
+    };
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/inquiry`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        alert('📨 詢價單已成功送出！');
+        localStorage.removeItem('inquiryCart');
+        window.dispatchEvent(new Event('inquiry-updated'));
+        navigate('/');
+      } else {
+        alert('❌ 詢價單送出失敗');
+      }
+    } catch (err) {
+      console.error('發送失敗：', err);
+      alert('❌ 發送時發生錯誤');
+    }
+  };
+
   return (
-    <div>
-      <h1>歡迎來到 YenChiBioTech</h1>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
-      <p>我們致力於提供生技相關的優質服務與產品。</p>
+    <div className="container mt-5 pt-4">
+      <div className="row justify-content-center">
+        <div className="col-lg-8 col-md-10">
+          <div className="card shadow-sm p-4 contact-form-card">
+            <h2 className="mb-4 text-primary text-center">
+              📨 聯絡我們
+            </h2>
+            <ContactForm
+              form={form}
+              onChange={handleChange}
+              onSubmit={handleSubmit}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-export default Home;
+export default Contact;

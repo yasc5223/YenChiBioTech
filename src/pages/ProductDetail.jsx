@@ -52,6 +52,32 @@ const ProductDetail = () => {
     }, 150);
   };
 
+  const handleAddToInquiry = () => {
+    const product = {
+      model,
+      category: cat,
+      subCategory: sub,
+      info: info || {},
+      image: images[0] || fallbackImage,
+    };
+
+    const existing = JSON.parse(localStorage.getItem("inquiryCart") || "[]");
+    const isExist = existing.some((item) => item.model === product.model);
+
+    if (!isExist) {
+      const updated = [...existing, product];
+      localStorage.setItem("inquiryCart", JSON.stringify(updated));
+      window.dispatchEvent(new Event("inquiry-updated"));
+      alert("✅ 已加入詢價車");
+    } else {
+      alert("⚠️ 該產品已在詢價車中");
+    }
+  };
+
+  const specImageUrl = `${baseUrl}/Production/${encodeURIComponent(cat)}/${encodeURIComponent(
+    sub
+  )}/${encodeURIComponent(model)}/規格/規格.png`;
+
   if (!info) {
     return (
       <div className="container mt-5 text-center">
@@ -67,7 +93,6 @@ const ProductDetail = () => {
       <Breadcrumbs pathParts={[cat, sub, model]} />
 
       <div className="row align-items-start">
-        {/* 圖片 */}
         <div className="col-md-5 mb-4">
           <Zoom>
             <img
@@ -77,15 +102,12 @@ const ProductDetail = () => {
               onError={(e) => (e.currentTarget.src = fallbackImage)}
             />
           </Zoom>
-
           <div className="thumb-list d-flex justify-content-start flex-wrap gap-2 mt-3">
             {images.map((img, i) => (
               <img
                 key={i}
                 src={img}
-                className={`thumbnail-img ${
-                  activeImage === img ? "active" : ""
-                }`}
+                className={`thumbnail-img ${activeImage === img ? "active" : ""}`}
                 onMouseEnter={() => handleImageChange(img)}
                 onClick={() => handleImageChange(img)}
                 onError={(e) => (e.currentTarget.src = fallbackImage)}
@@ -95,54 +117,58 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {/* 文字 */}
         <div className="col-md-7">
           <div className="product-info">
-            <h3>{info.InternalTitle}</h3>
-            <p>模組: {model}</p>
+            
             {info.ExternalTitle && info.ExternalTitle !== model && (
-              <div className="product-subtitle">{info.ExternalTitle}</div>
+              <h3
+                dangerouslySetInnerHTML={{
+                  __html: info.ExternalTitle.replace(/\n/g, "<br />"),
+                }}
+              />
             )}
+            <div className="product-subtitle"
+              dangerouslySetInnerHTML={{
+                __html: info.InternalTitle?.replace(/\n/g, "<br />"),
+              }}
+            />
+            <button className="btn btn-warning mt-3" onClick={handleAddToInquiry}>
+              🛒 加入詢價
+            </button>
           </div>
         </div>
       </div>
 
-      {/* 說明 Markdown */}
       <hr className="my-4" />
       <div className="product-description-markdown">
-        <strong>產品說明：</strong>
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
             p: ({ node, ...props }) => <p className="markdown-p" {...props} />,
-            h2: ({ node, ...props }) => (
-              <h2 className="markdown-h2" {...props} />
-            ),
-            ul: ({ node, ...props }) => (
-              <ul className="markdown-ul" {...props} />
-            ),
-            li: ({ node, ...props }) => (
-              <li className="markdown-li" {...props} />
-            ),
-            table: ({ node, ...props }) => (
-              <table className="markdown-table" {...props} />
-            ),
-            th: ({ node, ...props }) => (
-              <th className="markdown-th" {...props} />
-            ),
-            td: ({ node, ...props }) => (
-              <td className="markdown-td" {...props} />
-            ),
+            h2: ({ node, ...props }) => <h2 className="markdown-h2" {...props} />,
+            ul: ({ node, ...props }) => <ul className="markdown-ul" {...props} />,
+            li: ({ node, ...props }) => <li className="markdown-li" {...props} />,
+            table: ({ node, ...props }) => <table className="markdown-table" {...props} />,
+            th: ({ node, ...props }) => <th className="markdown-th" {...props} />,
+            td: ({ node, ...props }) => <td className="markdown-td" {...props} />,
             img: ({ node, ...props }) => (
-              <img
-                {...props}
-                className={`markdown-img ${props.className || ""}`}
-              />
+              <img {...props} className={`markdown-img ${props.className || ""}`} />
             ),
           }}
         >
-          {info.Description}
+          {(info.Description || "").replace(/\n/g, "\n\n")}
         </ReactMarkdown>
+        
+        {/* ✅ 自動插入規格圖 */}
+        <div className="mt-4">
+          <img
+            src={specImageUrl}
+            alt="產品規格圖"
+            className="img-fluid border rounded"
+            onError={(e) => (e.currentTarget.style.display = "none")}
+          />
+        </div>
+
       </div>
     </div>
   );

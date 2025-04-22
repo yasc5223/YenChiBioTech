@@ -1,0 +1,57 @@
+td.internal-code {
+    max-width: 400px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .inquiry-table td,
+.inquiry-table th {
+  vertical-align: top;
+  padding: 0.75rem;
+}
+
+.inquiry-table .internal-code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.inquiry-table img {
+  max-width: 100%;
+  height: auto;
+}
+/* Inquiry.css */
+.custom-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1050;
+  background-color: rgba(0, 0, 0, 0.4); /* 半透明背景遮罩 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-modal {
+  background-color: #fff;           /* 白色背景 */
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25); /* 陰影 */
+}
+
+.custom-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.custom-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+}

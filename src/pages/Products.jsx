@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Breadcrumbs from '../components/Breadcrumbs';
 import './Products.css';
 
-const fallbackImage = '/spinner.svg';
+const fallbackImage = 'spinner.svg';
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const Products = () => {
@@ -113,7 +113,11 @@ const Products = () => {
           />
         )}
         <div className="card-body">
-          <h6 className="card-title mb-1">{title}</h6>
+        <h6 className="card-title mb-1">
+  {title.split('\n').map((line, i) => (
+    <div key={i}>{line}</div>
+  ))}
+</h6>
           {description && description !== title && (
             <div className="text-muted small mt-1">
               {description.split('\n').map((line, index) => (
@@ -174,10 +178,10 @@ const Products = () => {
             const info = data?.Information;
             const image = info?.Images?.[0] || modelImages[model];
             return renderCard(
-              model,
+              info?.ExternalTitle,
               image,
               () => navigate(`/products/${level1}/${level2}/${model}`),
-              info?.ExternalTitle
+              model
             );
           })}
         </div>

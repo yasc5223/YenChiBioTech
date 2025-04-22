@@ -10,11 +10,14 @@ import Products from './pages/Products';
 import Contact from './pages/Contact';
 import './transition.css';
 import ProductDetail from './pages/ProductDetail';
+import Inquiry from './pages/Inquiry';
+import Footer from './components/Footer';
+import './App.css'
 
 function App() {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
-  const nodeRef = useRef(null); // ⭐ 關鍵修正
+  const nodeRef = useRef(null);
 
   useEffect(() => {
     setLoading(true);
@@ -25,43 +28,47 @@ function App() {
   }, [location.pathname]);
 
   return (
-    <>
+    <div className="app-wrapper d-flex flex-column min-vh-100">
       <Navbar />
-      <div className="container mt-5 pt-3">
-        {loading ? (
-          <div className="d-flex justify-content-center align-items-center vh-100">
-          <img
-            src="spinner.svg"
-            alt="載入中..."
-            className="custom-spinner-img"
-            width="80"
-            height="80"
-          />
+      <main className="app-main flex-grow-1">
+        <div className="container mt-5 pt-3">
+          {loading ? (
+            <div className="d-flex justify-content-center align-items-center" style={{ height: '60vh' }}>
+              <img
+                src="/spinner.svg"
+                alt="載入中..."
+                className="custom-spinner-img"
+                width="80"
+                height="80"
+              />
+            </div>
+          ) : (
+            <TransitionGroup>
+              <CSSTransition
+                key={location.pathname}
+                classNames="fade"
+                timeout={300}
+                unmountOnExit
+                nodeRef={nodeRef}
+              >
+                <div ref={nodeRef}>
+                  <Routes location={location}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/products/*" element={<Products />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/products/:cat/:sub/:model" element={<ProductDetail />} />
+                    <Route path="/inquiry" element={<Inquiry />} />
+                  </Routes>
+                </div>
+              </CSSTransition>
+            </TransitionGroup>
+          )}
         </div>
-        ) : (
-          <TransitionGroup>
-            <CSSTransition
-              key={location.pathname}
-              classNames="fade"
-              timeout={300}
-              unmountOnExit
-              nodeRef={nodeRef} // ⭐ 傳入這個
-            >
-              <div ref={nodeRef}>
-                <Routes location={location}>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/products/*" element={<Products />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/products/:cat/:sub/:model" element={<ProductDetail />} />
-                </Routes>
-              </div>
-            </CSSTransition>
-          </TransitionGroup>
-        )}
-      </div>
-    </>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
