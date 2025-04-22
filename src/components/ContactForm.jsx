@@ -1,92 +1,90 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 import './ContactForm.css';
 
 const ContactForm = ({ form, onChange, onSubmit }) => {
-  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [captchaToken, setCaptchaToken] = useState('');
 
-  const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const reCAPTCHAKey = import.meta.env.VITE_RECAPTCHA_KEY; // ✅ .env 裡設定 VITE_RECAPTCHA_KEY
+
+  useEffect(() => {
+    if (captchaToken) {
+      onChange({ target: { name: 'recaptcha', value: captchaToken } });
+    }
+  }, [captchaToken]);
+
+  const validate = () => {
+    const errs = {};
+    if (!form.name) errs.name = '必填';
+    if (!form.email) {
+      errs.email = '必填';
+    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
+      errs.email = 'Email 格式錯誤';
+    }
+    if (!form.unit) errs.unit = '必填';
+    if (!form.phone) errs.phone = '必填';
+    if (!form.recaptcha) errs.recaptcha = '請通過驗證';
+
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
   };
 
-  const handleClick = () => {
-    setSubmitted(true);
-
-    const isValid =
-      form.name &&
-      form.unit &&
-      form.phone &&
-      form.email &&
-      validateEmail(form.email);
-
-    if (!isValid) {
-      const formBox = document.querySelector('.contact-form');
-      if (formBox) {
-        formBox.classList.remove('shake');
-        void formBox.offsetWidth;
-        formBox.classList.add('shake');
-      }
-      return;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validate()) {
+      onSubmit();
     }
-
-    onSubmit();
-  };
-
-  const getInvalid = (field) => {
-    if (!submitted) return false;
-    if (field === 'email') {
-      return !form.email || !validateEmail(form.email);
-    }
-    return !form[field];
   };
 
   return (
-    <div className="contact-form border rounded p-3 bg-white">
-      {['name', 'email', 'unit', 'phone'].map((field, idx) => {
-        const isInvalid = getInvalid(field);
-        return (
-          <div className="mb-3" key={idx}>
-            <label className="form-label fw-bold">
-              {{
-                name: '👤 姓名',
-                email: '📧 Email',
-                unit: '🏢 單位',
-                phone: '📞 電話(#分機)',
-              }[field]}
-            </label>
-            <input
-              type={field === 'email' ? 'email' : 'text'}
-              name={field}
-              className={`form-control ${isInvalid ? 'is-invalid' : ''}`}
-              value={form[field]}
-              onChange={onChange}
-            />
-            {isInvalid && (
-              <div className="invalid-feedback">
-                {field === 'email' ? '請輸入正確的 Email 格式' : '請填寫此欄位'}
-              </div>
-            )}
-          </div>
-        );
-      })}
+    <form className="contact-form" onSubmit={handleSubmit}>
+      {[{ name: 'name', label: '👤 姓名' },
+        { name: 'email', label: '📧 Email' },
+        { name: 'unit', label: '🏢 單位' },
+        { name: 'phone', label: '📞 電話' }
+      ].map(({ name, label }) => (
+        <div key={name} className="mb-3">
+          <label className="form-label fw-bold">{label}</label>
+          <input
+            type={name === 'email' ? 'email' : 'text'}
+            name={name}
+            className={`form-control ${errors[name] ? 'is-invalid' : ''}`}
+            value={form[name]}
+            onChange={onChange}
+          />
+          {errors[name] && <div className="invalid-feedback">{errors[name]}</div>}
+        </div>
+      ))}
 
       <div className="mb-3">
         <label className="form-label fw-bold">📝 備註 / 詢問內容</label>
         <textarea
-          className="form-control"
-          rows={4}
           name="message"
+          rows="4"
+          className="form-control"
           value={form.message}
           onChange={onChange}
           placeholder="若有未列出的詢問產品，請於此處填寫..."
         />
       </div>
 
-      <div className="text-center mt-4">
-        <button className="btn btn-primary px-4 py-2" onClick={handleClick}>
-          📮 送出
+      <div className="mb-3">
+        <ReCAPTCHA
+          sitekey={reCAPTCHAKey}
+          onChange={(token) => setCaptchaToken(token)}
+        />
+        {errors.recaptcha && (
+          <div className="text-danger small mt-1">{errors.recaptcha}</div>
+        )}
+      </div>
+
+      <div className="text-end">
+        <button type="submit" className="btn btn-primary">
+          📮 送出詢價單
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 
