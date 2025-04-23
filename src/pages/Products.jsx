@@ -3,8 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Breadcrumbs from '../components/Breadcrumbs';
 import './Products.css';
 
-const fallbackImage = 'spinner.svg';
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const fallbackImage = `${baseUrl}/images/spinner.svg`;
 
 const Products = () => {
   const location = useLocation();
@@ -65,7 +65,6 @@ const Products = () => {
           fetch(url)
             .then((res) => res.json())
             .then((data) => {
-              console.log(data);
               if (Array.isArray(data) && data.length > 0) {
                 setModelImages((prev) => ({ ...prev, [model]: data[0] }));
               }
