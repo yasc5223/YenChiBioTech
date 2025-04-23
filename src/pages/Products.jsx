@@ -62,6 +62,7 @@ const Products = () => {
       models.forEach(([model]) => {
         if (!modelImages[model]) {
           const url = `${baseUrl}/api/images/${encodeURIComponent(level1)}/${encodeURIComponent(level2)}/${encodeURIComponent(model)}`;
+          console.log('從1觸發');
           fetch(url)
             .then((res) => res.json())
             .then((data) => {
@@ -80,6 +81,7 @@ const Products = () => {
   useEffect(() => {
     if (level1 && level2 && level3) {
       const url = `${baseUrl}/api/images/${encodeURIComponent(level1)}/${encodeURIComponent(level2)}/${encodeURIComponent(level3)}`;
+      console.log('從2觸發');
       fetch(url)
         .then((res) => res.json())
         .then((data) => {
