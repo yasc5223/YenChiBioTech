@@ -152,12 +152,26 @@ const ProductDetail = () => {
               />
             )}
             <p>型號: {model}</p>
-            <div
-              className="product-subtitle"
-              dangerouslySetInnerHTML={{
-                __html: info.InternalTitle?.replace(/\n/g, "<br />"),
-              }}
-            />
+            {info.InternalTitle && (
+  <ReactMarkdown
+    remarkPlugins={[remarkGfm]}
+    components={{
+      p: ({ node, ...props }) => <p className="markdown-p" {...props} />,
+      h2: ({ node, ...props }) => <h2 className="markdown-h2" {...props} />,
+      ul: ({ node, ...props }) => <ul className="markdown-ul" {...props} />,
+      li: ({ node, ...props }) => <li className="markdown-li" {...props} />,
+      table: ({ node, ...props }) => <table className="markdown-table" {...props} />,
+      th: ({ node, ...props }) => <th className="markdown-th" {...props} />,
+      td: ({ node, ...props }) => <td className="markdown-td" {...props} />,
+      img: ({ node, ...props }) => (
+        <img {...props} className={`markdown-img ${props.className || ""}`} />
+      ),
+    }}
+  >
+    {info.InternalTitle.replace(/\n/g, "\n\n")}
+  </ReactMarkdown>
+)}
+
 
             <div className="mt-3 d-flex gap-2 flex-wrap">
               {prevModel && (
