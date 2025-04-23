@@ -184,7 +184,7 @@ const ProductDetail = () => {
                     navigate(
                       `/products/${encodeURIComponent(cat)}/${encodeURIComponent(
                         sub
-                      )}/${encodeURIComponent(nextModel)}`
+                      )}/${encodeURIComponent(nextModel)}`//測試
                     )
                   }
                 >
