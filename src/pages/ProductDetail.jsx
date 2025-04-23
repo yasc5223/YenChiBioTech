@@ -18,7 +18,7 @@ const ProductDetail = () => {
   const [images, setImages] = useState([]);
   const [activeImage, setActiveImage] = useState(null);
   const [fade, setFade] = useState(false);
-  const [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState([]);//
 
   useEffect(() => {
     fetch(`${baseUrl}/api/production`)
