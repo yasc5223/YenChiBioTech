@@ -105,7 +105,7 @@ const Inquiry = () => {
             <th style={{ width: "110px" }}>圖片</th>
             <th style={{ width: "200px" }}>產品名稱</th>
             <th style={{ width: "160px" }}>分類</th>
-            <th className="internal-code">內部代號</th>
+            <th className="internal-code">說明</th>
             <th style={{ width: "80px" }}>操作</th>
           </tr>
         </thead>
