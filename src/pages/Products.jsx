@@ -175,7 +175,7 @@ const Products = () => {
       return (
         <div className="card-responsive-grid">
           {subCategories.map(([sub, data]) =>
-            renderCard(sub, data.Image, () => {
+            renderCard(data.HideCardTitle ? '':sub, data.Image, () => {
               if (data.url) {
                 window.open(data.url, "_blank");
               } else {
@@ -207,7 +207,7 @@ const Products = () => {
             };
       
             return renderCard(
-              info?.ExternalTitle || model,
+              data.HideCardTitle ? '':(info?.ExternalTitle || model),
               image,
               handleClick,
               ''
