@@ -55,6 +55,7 @@ const Inquiry = () => {
       phone,
       email,
       message,
+      recaptcha: form.recaptcha,
       items: cart,
     };
 

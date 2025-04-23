@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Zoom from "react-medium-image-zoom";
@@ -12,10 +12,13 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const ProductDetail = () => {
   const { cat, sub, model } = useParams();
+  const navigate = useNavigate();
+
   const [info, setInfo] = useState(null);
   const [images, setImages] = useState([]);
   const [activeImage, setActiveImage] = useState(null);
   const [fade, setFade] = useState(false);
+  const [productList, setProductList] = useState([]);
 
   useEffect(() => {
     fetch(`${baseUrl}/api/production`)
@@ -23,6 +26,9 @@ const ProductDetail = () => {
       .then((data) => {
         const detail = data?.[cat]?.[sub]?.[model]?.Information;
         setInfo(detail);
+
+        const models = Object.keys(data?.[cat]?.[sub] || {}).filter((m) => m !== "Image");
+        setProductList(models);
       })
       .catch(() => setInfo(null));
   }, [cat, sub, model]);
@@ -74,9 +80,28 @@ const ProductDetail = () => {
     }
   };
 
-  const specImageUrl = `${baseUrl}/Production/${encodeURIComponent(cat)}/${encodeURIComponent(
-    sub
-  )}/${encodeURIComponent(model)}/規格/規格.png`;
+  // 規格圖搜尋策略
+  const findSpecImage = () => {
+    for (let i = 0; i <= 10; i++) {
+      const suffix = i === 0 ? "" : i;
+      const url = `${baseUrl}/Production/${encodeURIComponent(cat)}/${encodeURIComponent(
+        sub
+      )}/${encodeURIComponent(model)}/規格/規格${suffix}.png`;
+      const img = new Image();
+      img.src = url;
+      img.onload = () => setSpecImageUrl(url);
+    }
+  };
+
+  const [specImageUrl, setSpecImageUrl] = useState(null);
+
+  useEffect(() => {
+    findSpecImage();
+  }, [cat, sub, model]);
+
+  const currentIndex = productList.indexOf(model);
+  const prevModel = productList[currentIndex - 1];
+  const nextModel = productList[currentIndex + 1];
 
   if (!info) {
     return (
@@ -119,7 +144,6 @@ const ProductDetail = () => {
 
         <div className="col-md-7">
           <div className="product-info">
-            
             {info.ExternalTitle && info.ExternalTitle !== model && (
               <h3
                 dangerouslySetInnerHTML={{
@@ -127,14 +151,47 @@ const ProductDetail = () => {
                 }}
               />
             )}
-            <div className="product-subtitle"
+            <div
+              className="product-subtitle"
               dangerouslySetInnerHTML={{
                 __html: info.InternalTitle?.replace(/\n/g, "<br />"),
               }}
             />
-            <button className="btn btn-warning mt-3" onClick={handleAddToInquiry}>
-              🛒 加入詢價
-            </button>
+            <p>型號: {model}</p>
+
+            <div className="mt-3 d-flex gap-2 flex-wrap">
+              {prevModel && (
+                <button
+                  className="btn btn-outline-secondary"
+                  onClick={() =>
+                    navigate(
+                      `/products/${encodeURIComponent(cat)}/${encodeURIComponent(
+                        sub
+                      )}/${encodeURIComponent(prevModel)}`
+                    )
+                  }
+                >
+                  ← 上一個
+                </button>
+              )}
+              <button className="btn btn-warning" onClick={handleAddToInquiry}>
+                🛒 加入詢價
+              </button>
+              {nextModel && (
+                <button
+                  className="btn btn-outline-secondary"
+                  onClick={() =>
+                    navigate(
+                      `/products/${encodeURIComponent(cat)}/${encodeURIComponent(
+                        sub
+                      )}/${encodeURIComponent(nextModel)}`
+                    )
+                  }
+                >
+                  下一個 →
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -158,17 +215,17 @@ const ProductDetail = () => {
         >
           {(info.Description || "").replace(/\n/g, "\n\n")}
         </ReactMarkdown>
-        
-        {/* ✅ 自動插入規格圖 */}
-        <div className="mt-4">
-          <img
-            src={specImageUrl}
-            alt="產品規格圖"
-            className="img-fluid border rounded"
-            onError={(e) => (e.currentTarget.style.display = "none")}
-          />
-        </div>
 
+        {specImageUrl && (
+          <div className="mt-4">
+            <img
+              src={specImageUrl}
+              alt="產品規格圖"
+              className="img-fluid border rounded"
+              onError={(e) => (e.currentTarget.style.display = "none")}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

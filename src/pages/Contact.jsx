@@ -39,7 +39,7 @@ const Contact = () => {
     }
 
     const payload = {
-      name, unit, phone, email, message,
+      name, unit, phone, email, message,recaptcha: form.recaptcha,
       items: cart,
     };
 
