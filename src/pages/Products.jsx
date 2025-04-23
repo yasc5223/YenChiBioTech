@@ -181,7 +181,7 @@ const Products = () => {
               info?.ExternalTitle,
               image,
               () => navigate(`/products/${level1}/${level2}/${model}`),
-              model
+              ''
             );
           })}
         </div>
