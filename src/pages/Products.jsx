@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import Breadcrumbs from '../components/Breadcrumbs';
-import './Products.css';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import Breadcrumbs from "../components/Breadcrumbs";
+import "./Products.css";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const fallbackImage = `${baseUrl}/images/spinner.svg`;
@@ -11,8 +11,8 @@ const Products = () => {
   const navigate = useNavigate();
 
   const pathParts = location.pathname
-    .replace('/products', '')
-    .split('/')
+    .replace("/products", "")
+    .split("/")
     .filter(Boolean)
     .map(decodeURIComponent);
 
@@ -29,7 +29,7 @@ const Products = () => {
         setProductData(data);
       })
       .catch((err) => {
-        console.error('⚠️ 無法載入產品分類:', err);
+        console.error("⚠️ 無法載入產品分類:", err);
       });
   }, []);
 
@@ -43,7 +43,7 @@ const Products = () => {
   useEffect(() => {
     if (Object.keys(productData).length === 0) return;
     if (!isValidPath()) {
-      navigate('/products');
+      navigate("/products");
     }
   }, [location.pathname, productData]);
 
@@ -56,12 +56,14 @@ const Products = () => {
   useEffect(() => {
     if (level1 && level2 && !level3) {
       const models = Object.entries(productData[level1]?.[level2] || {}).filter(
-        ([key]) => key !== 'Image'
+        ([key]) => key !== "Image"
       );
 
       models.forEach(([model]) => {
         if (!modelImages[model]) {
-          const url = `${baseUrl}/api/images/${encodeURIComponent(level1)}/${encodeURIComponent(level2)}/${encodeURIComponent(model)}`;
+          const url = `${baseUrl}/api/images/${encodeURIComponent(
+            level1
+          )}/${encodeURIComponent(level2)}/${encodeURIComponent(model)}`;
           fetch(url)
             .then((res) => res.json())
             .then((data) => {
@@ -79,14 +81,16 @@ const Products = () => {
 
   useEffect(() => {
     if (level1 && level2 && level3) {
-      const url = `${baseUrl}/api/images/${encodeURIComponent(level1)}/${encodeURIComponent(level2)}/${encodeURIComponent(level3)}`;
+      const url = `${baseUrl}/api/images/${encodeURIComponent(
+        level1
+      )}/${encodeURIComponent(level2)}/${encodeURIComponent(level3)}`;
       fetch(url)
         .then((res) => res.json())
         .then((data) => {
           if (Array.isArray(data)) setApiImages(data);
         })
         .catch((err) => {
-          console.error('⚠️ 圖片載入失敗:', err);
+          console.error("⚠️ 圖片載入失敗:", err);
           setApiImages([]);
         });
     }
@@ -94,16 +98,23 @@ const Products = () => {
 
   const goBackOneLevel = () => {
     if (pathParts.length > 0) {
-      const upperPath = ['/products', ...pathParts.slice(0, pathParts.length - 1)].join('/');
+      const upperPath = [
+        "/products",
+        ...pathParts.slice(0, pathParts.length - 1),
+      ].join("/");
       navigate(upperPath);
     } else {
-      navigate('/products');
+      navigate("/products");
     }
   };
 
   const renderCard = (title, image, onClick, description) => (
     <div className="card-item" key={title}>
-      <div className="card card-fixed shadow-sm" style={{ cursor: 'pointer' }} onClick={onClick}>
+      <div
+        className="card card-fixed shadow-sm"
+        style={{ cursor: "pointer" }}
+        onClick={onClick}
+      >
         {image && (
           <img
             src={image}
@@ -113,14 +124,14 @@ const Products = () => {
           />
         )}
         <div className="card-body">
-        <h6 className="card-title mb-1">
-  {title.split('\n').map((line, i) => (
-    <div key={i}>{line}</div>
-  ))}
-</h6>
+          <h6 className="card-title mb-1">
+            {title.split("\n").map((line, i) => (
+              <div key={i}>{line}</div>
+            ))}
+          </h6>
           {description && description !== title && (
             <div className="text-muted small mt-1">
-              {description.split('\n').map((line, index) => (
+              {description.split("\n").map((line, index) => (
                 <div key={index}>{line}</div>
               ))}
             </div>
@@ -149,7 +160,9 @@ const Products = () => {
       return (
         <div className="card-responsive-grid">
           {Object.entries(productData).map(([category, data]) =>
-            renderCard(category, data.Image, () => navigate(`/products/${category}`))
+            renderCard(category, data.Image, () =>
+              navigate(`/products/${category}`)
+            )
           )}
         </div>
       );
@@ -157,12 +170,18 @@ const Products = () => {
 
     if (level1 && !level2) {
       const subCategories = Object.entries(productData[level1] || {}).filter(
-        ([key]) => key !== 'Image'
+        ([key]) => key !== "Image"
       );
       return (
         <div className="card-responsive-grid">
           {subCategories.map(([sub, data]) =>
-            renderCard(sub, data.Image, () => navigate(`/products/${level1}/${sub}`))
+            renderCard(sub, data.Image, () => {
+              if (data.url) {
+                window.open(data.url, "_blank");
+              } else {
+                navigate(`/products/${level1}/${sub}`);
+              }
+            })
           )}
         </div>
       );
@@ -170,22 +189,33 @@ const Products = () => {
 
     if (level1 && level2 && !level3) {
       const models = Object.entries(productData[level1]?.[level2] || {}).filter(
-        ([key]) => key !== 'Image'
+        ([key]) => key !== "Image"
       );
       return (
         <div className="card-responsive-grid">
           {models.map(([model, data]) => {
             const info = data?.Information;
             const image = info?.Images?.[0] || modelImages[model];
+            const externalUrl = data?.url;
+      
+            const handleClick = () => {
+              if (externalUrl) {
+                window.open(externalUrl, '_blank', 'noopener noreferrer');
+              } else {
+                navigate(`/products/${level1}/${level2}/${model}`);
+              }
+            };
+      
             return renderCard(
-              info?.ExternalTitle,
+              info?.ExternalTitle || model,
               image,
-              () => navigate(`/products/${level1}/${level2}/${model}`),
+              handleClick,
               ''
             );
           })}
         </div>
       );
+      
     }
 
     if (level1 && level2 && level3) {
@@ -196,7 +226,10 @@ const Products = () => {
         <div className="card shadow-sm">
           <div className="card-body">
             <h4 className="card-title mb-3">{info.ExternalTitle || level3}</h4>
-            <p><strong>內部代號：</strong>{info.InternalTitle}</p>
+            <p>
+              <strong>內部代號：</strong>
+              {info.InternalTitle}
+            </p>
             <p>{info.Description}</p>
 
             {apiImages.length > 0 ? (

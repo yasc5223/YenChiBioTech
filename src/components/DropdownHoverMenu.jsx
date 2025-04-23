@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './DropdownHoverMenu.css';
-import { FiChevronRight } from 'react-icons/fi'; // ⬅️ 引入箭頭 icon
+import { FiChevronRight } from 'react-icons/fi'; // ➤箭頭 icon
 
 function DropdownHoverMenu({ label, links }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,37 +17,64 @@ function DropdownHoverMenu({ label, links }) {
       <span className="nav-link dropdown-toggle" role="button">
         {label}
       </span>
+
       {isOpen && (
         <div className="dropdown-menu show">
-          {links.map((link, index) => (
-            <div key={index} className={hasSubmenu(link) ? 'dropdown-submenu' : ''}>
-              {hasSubmenu(link) ? (
-                <>
-                  <Link className="dropdown-item" to={link.to}>
-                    <span className="dropdown-item-content">
+          {links.map((link, index) => {
+            console.log(link.to);
+            const isExternal = link.to?.startsWith('http');
+            const hasSub = hasSubmenu(link);
+
+            return (
+              <div key={index} className={hasSub ? 'dropdown-submenu' : ''}>
+                {hasSub ? (
+                  <>
+                    <span className="dropdown-item dropdown-item-content">
                       <span>{link.label}</span>
                       <FiChevronRight className="arrow-icon" />
                     </span>
+                    <div className="dropdown-menu">
+                      {link.submenu.map((subLink, subIndex) => {
+                        const isSubExternal = subLink.to?.startsWith('http');
+                        return isSubExternal ? (
+                          <a
+                            key={subIndex}
+                            className="dropdown-item"
+                            href={subLink.to}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {subLink.label}
+                          </a>
+                        ) : (
+                          <Link
+                            key={subIndex}
+                            className="dropdown-item"
+                            to={subLink.to}
+                          >
+                            {subLink.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </>
+                ) : isExternal ? (
+                  <a
+                    className="dropdown-item"
+                    href={link.to}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link className="dropdown-item" to={link.to}>
+                    {link.label}
                   </Link>
-                  <div className="dropdown-menu">
-                    {link.submenu.map((subLink, subIndex) => (
-                      <Link
-                        key={subIndex}
-                        className="dropdown-item"
-                        to={subLink.to}
-                      >
-                        {subLink.label}
-                      </Link>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <Link className="dropdown-item" to={link.to}>
-                  {link.label}
-                </Link>
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
     </li>

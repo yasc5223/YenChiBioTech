@@ -18,7 +18,7 @@ const ProductDetail = () => {
   const [images, setImages] = useState([]);
   const [activeImage, setActiveImage] = useState(null);
   const [fade, setFade] = useState(false);
-  const [productList, setProductList] = useState([]);//
+  const [productList, setProductList] = useState([]); //
 
   useEffect(() => {
     fetch(`${baseUrl}/api/production`)
@@ -27,7 +27,9 @@ const ProductDetail = () => {
         const detail = data?.[cat]?.[sub]?.[model]?.Information;
         setInfo(detail);
 
-        const models = Object.keys(data?.[cat]?.[sub] || {}).filter((m) => m !== "Image");
+        const models = Object.keys(data?.[cat]?.[sub] || {}).filter(
+          (m) => m !== "Image"
+        );
         setProductList(models);
       })
       .catch(() => setInfo(null));
@@ -84,9 +86,11 @@ const ProductDetail = () => {
   const findSpecImage = () => {
     for (let i = 0; i <= 10; i++) {
       const suffix = i === 0 ? "" : i;
-      const url = `${baseUrl}/Production/${encodeURIComponent(cat)}/${encodeURIComponent(
-        sub
-      )}/${encodeURIComponent(model)}/規格/規格${suffix}.png`;
+      const url = `${baseUrl}/Production/${encodeURIComponent(
+        cat
+      )}/${encodeURIComponent(sub)}/${encodeURIComponent(
+        model
+      )}/規格/規格${suffix}.png`;
       const img = new Image();
       img.src = url;
       img.onload = () => setSpecImageUrl(url);
@@ -132,7 +136,9 @@ const ProductDetail = () => {
               <img
                 key={i}
                 src={img}
-                className={`thumbnail-img ${activeImage === img ? "active" : ""}`}
+                className={`thumbnail-img ${
+                  activeImage === img ? "active" : ""
+                }`}
                 onMouseEnter={() => handleImageChange(img)}
                 onClick={() => handleImageChange(img)}
                 onError={(e) => (e.currentTarget.src = fallbackImage)}
@@ -151,27 +157,43 @@ const ProductDetail = () => {
                 }}
               />
             )}
-            <p>型號: {model}</p>
+            {cat != '耗材試劑與抗體' && (<p>型號: {model}</p>)}
             {info.InternalTitle && (
-  <ReactMarkdown
-    remarkPlugins={[remarkGfm]}
-    components={{
-      p: ({ node, ...props }) => <p className="markdown-p" {...props} />,
-      h2: ({ node, ...props }) => <h2 className="markdown-h2" {...props} />,
-      ul: ({ node, ...props }) => <ul className="markdown-ul" {...props} />,
-      li: ({ node, ...props }) => <li className="markdown-li" {...props} />,
-      table: ({ node, ...props }) => <table className="markdown-table" {...props} />,
-      th: ({ node, ...props }) => <th className="markdown-th" {...props} />,
-      td: ({ node, ...props }) => <td className="markdown-td" {...props} />,
-      img: ({ node, ...props }) => (
-        <img {...props} className={`markdown-img ${props.className || ""}`} />
-      ),
-    }}
-  >
-    {info.InternalTitle.replace(/\n/g, "\n\n")}
-  </ReactMarkdown>
-)}
-
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  p: ({ node, ...props }) => (
+                    <p className="markdown-p" {...props} />
+                  ),
+                  h2: ({ node, ...props }) => (
+                    <h2 className="markdown-h2" {...props} />
+                  ),
+                  ul: ({ node, ...props }) => (
+                    <ul className="markdown-ul" {...props} />
+                  ),
+                  li: ({ node, ...props }) => (
+                    <li className="markdown-li" {...props} />
+                  ),
+                  table: ({ node, ...props }) => (
+                    <table className="markdown-table" {...props} />
+                  ),
+                  th: ({ node, ...props }) => (
+                    <th className="markdown-th" {...props} />
+                  ),
+                  td: ({ node, ...props }) => (
+                    <td className="markdown-td" {...props} />
+                  ),
+                  img: ({ node, ...props }) => (
+                    <img
+                      {...props}
+                      className={`markdown-img ${props.className || ""}`}
+                    />
+                  ),
+                }}
+              >
+                {info.InternalTitle.replace(/\n/g, "\n\n")}
+              </ReactMarkdown>
+            )}
 
             <div className="mt-3 d-flex gap-2 flex-wrap">
               {prevModel && (
@@ -179,9 +201,11 @@ const ProductDetail = () => {
                   className="btn btn-outline-secondary"
                   onClick={() =>
                     navigate(
-                      `/products/${encodeURIComponent(cat)}/${encodeURIComponent(
-                        sub
-                      )}/${encodeURIComponent(prevModel)}`
+                      `/products/${encodeURIComponent(
+                        cat
+                      )}/${encodeURIComponent(sub)}/${encodeURIComponent(
+                        prevModel
+                      )}`
                     )
                   }
                 >
@@ -196,9 +220,11 @@ const ProductDetail = () => {
                   className="btn btn-outline-secondary"
                   onClick={() =>
                     navigate(
-                      `/products/${encodeURIComponent(cat)}/${encodeURIComponent(
-                        sub
-                      )}/${encodeURIComponent(nextModel)}`
+                      `/products/${encodeURIComponent(
+                        cat
+                      )}/${encodeURIComponent(sub)}/${encodeURIComponent(
+                        nextModel
+                      )}`
                     )
                   }
                 >
@@ -216,14 +242,29 @@ const ProductDetail = () => {
           remarkPlugins={[remarkGfm]}
           components={{
             p: ({ node, ...props }) => <p className="markdown-p" {...props} />,
-            h2: ({ node, ...props }) => <h2 className="markdown-h2" {...props} />,
-            ul: ({ node, ...props }) => <ul className="markdown-ul" {...props} />,
-            li: ({ node, ...props }) => <li className="markdown-li" {...props} />,
-            table: ({ node, ...props }) => <table className="markdown-table" {...props} />,
-            th: ({ node, ...props }) => <th className="markdown-th" {...props} />,
-            td: ({ node, ...props }) => <td className="markdown-td" {...props} />,
+            h2: ({ node, ...props }) => (
+              <h2 className="markdown-h2" {...props} />
+            ),
+            ul: ({ node, ...props }) => (
+              <ul className="markdown-ul" {...props} />
+            ),
+            li: ({ node, ...props }) => (
+              <li className="markdown-li" {...props} />
+            ),
+            table: ({ node, ...props }) => (
+              <table className="markdown-table" {...props} />
+            ),
+            th: ({ node, ...props }) => (
+              <th className="markdown-th" {...props} />
+            ),
+            td: ({ node, ...props }) => (
+              <td className="markdown-td" {...props} />
+            ),
             img: ({ node, ...props }) => (
-              <img {...props} className={`markdown-img ${props.className || ""}`} />
+              <img
+                {...props}
+                className={`markdown-img ${props.className || ""}`}
+              />
             ),
           }}
         >

@@ -115,29 +115,51 @@ function Navbar() {
     const processProductionData = (data) =>
       Object.entries(data).map(([mainCategory, items]) => {
         const isMainLink = items.url && items.url.trim();
-        if (isMainLink) return { label: mainCategory, to: items.url };
+        if (isMainLink) {
+          return {
+            label: mainCategory,
+            to: items.url,
+          };
+        }
+    
         const submenu = Object.entries(items)
           .filter(([k]) => k !== "Image")
           .map(([subCategory, models]) => {
+            const isSubLink = models.url && models.url.trim();
+            if (isSubLink) {
+              return {
+                label: subCategory,
+                to: models.url,
+              };
+            }
+    
             const modelItems = Object.entries(models)
               .filter(([model]) => model !== "Image")
-              .map(([model, details]) => ({
-                label: model,
-                to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}/${encodeURIComponent(model)}`,
-                info: details.Information,
-              }));
+              .map(([model, details]) => {
+                const isModelLink = details?.url && details.url.trim();
+                return {
+                  label: model,
+                  to:
+                    isModelLink ||
+                    `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}/${encodeURIComponent(model)}`,
+                  info: details?.Information,
+                };
+              });
+    
             return {
               label: subCategory,
               to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}`,
               submenu: modelItems,
             };
           });
+    
         return {
           label: mainCategory,
           to: `/products/${encodeURIComponent(mainCategory)}`,
           submenu,
         };
       });
+    
 
     const processServicesData = (data) =>
       Object.entries(data).map(([mainCategory, items]) => {
