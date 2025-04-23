@@ -18,7 +18,6 @@ function Navbar() {
   const [serviceLinks, setServiceLinks] = useState([]);
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
-  console.log('目前連線' + baseUrl);// 測試
 
   // 更新購物車數量：支援 localStorage 和 CustomEvent
   useEffect(() => {
