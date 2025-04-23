@@ -19,64 +19,63 @@ function DropdownHoverMenu({ label, links }) {
       </span>
 
       {isOpen && (
-        <div className="dropdown-menu show">
-          {links.map((link, index) => {
-            console.log(link.to);
-            const isExternal = link.to?.startsWith('http');
-            const hasSub = hasSubmenu(link);
+  <div className="dropdown-menu show">
+    {links.map((link, index) => {
+      const hasSub = link.submenu?.length > 0;
+      const isExternal = link.to?.startsWith("http");
 
-            return (
-              <div key={index} className={hasSub ? 'dropdown-submenu' : ''}>
-                {hasSub ? (
-                  <>
-                    <span className="dropdown-item dropdown-item-content">
-                      <span>{link.label}</span>
-                      <FiChevronRight className="arrow-icon" />
-                    </span>
-                    <div className="dropdown-menu">
-                      {link.submenu.map((subLink, subIndex) => {
-                        const isSubExternal = subLink.to?.startsWith('http');
-                        return isSubExternal ? (
-                          <a
-                            key={subIndex}
-                            className="dropdown-item"
-                            href={subLink.to}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {subLink.label}
-                          </a>
-                        ) : (
-                          <Link
-                            key={subIndex}
-                            className="dropdown-item"
-                            to={subLink.to}
-                          >
-                            {subLink.label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </>
-                ) : isExternal ? (
+      return (
+        <div key={index} className={hasSub ? "dropdown-submenu" : ""}>
+          {isExternal ? (
+            <a
+              href={link.to}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="dropdown-item"
+            >
+              <span className="dropdown-item-content">
+                <span>{link.label}</span>
+                {hasSub && <FiChevronRight className="arrow-icon" />}
+              </span>
+            </a>
+          ) : (
+            <Link className="dropdown-item" to={link.to}>
+              <span className="dropdown-item-content">
+                <span>{link.label}</span>
+                {hasSub && <FiChevronRight className="arrow-icon" />}
+              </span>
+            </Link>
+          )}
+
+          {/* 第二層 submenu */}
+          {hasSub && (
+            <div className="dropdown-menu">
+              {link.submenu.map((subLink, subIndex) => {
+                const isExternalSub = subLink.to?.startsWith("http");
+                return isExternalSub ? (
                   <a
-                    className="dropdown-item"
-                    href={link.to}
+                    key={subIndex}
+                    href={subLink.to}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="dropdown-item"
                   >
-                    {link.label}
+                    {subLink.label}
                   </a>
                 ) : (
-                  <Link className="dropdown-item" to={link.to}>
-                    {link.label}
+                  <Link key={subIndex} to={subLink.to} className="dropdown-item">
+                    {subLink.label}
                   </Link>
-                )}
-              </div>
-            );
-          })}
+                );
+              })}
+            </div>
+          )}
         </div>
-      )}
+      );
+    })}
+  </div>
+)}
+
     </li>
   );
 }
