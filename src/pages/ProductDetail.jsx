@@ -151,13 +151,13 @@ const ProductDetail = () => {
                 }}
               />
             )}
+            <p>型號: {model}</p>
             <div
               className="product-subtitle"
               dangerouslySetInnerHTML={{
                 __html: info.InternalTitle?.replace(/\n/g, "<br />"),
               }}
             />
-            <p>型號: {model}</p>
 
             <div className="mt-3 d-flex gap-2 flex-wrap">
               {prevModel && (
