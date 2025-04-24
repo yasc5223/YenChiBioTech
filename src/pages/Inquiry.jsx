@@ -6,6 +6,7 @@ import ContactForm from "../components/ContactForm";
 const Inquiry = () => {
   const [cart, setCart] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [submitting, setSubmitting] = useState(false); // 🆕
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -60,6 +61,7 @@ const Inquiry = () => {
     };
 
     try {
+      setSubmitting(true); // ⏳ 開始提交
       const res = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/api/inquiry`,
         {
@@ -81,6 +83,8 @@ const Inquiry = () => {
     } catch (err) {
       console.error("發送失敗：", err);
       alert("❌ 發送時發生錯誤");
+    } finally {
+      setSubmitting(false); // ✅ 結束提交
     }
   };
 
@@ -122,11 +126,7 @@ const Inquiry = () => {
               </td>
               <td className="align-middle">
                 <Link
-                  to={`/products/${encodeURIComponent(
-                    item.category
-                  )}/${encodeURIComponent(
-                    item.subCategory
-                  )}/${encodeURIComponent(item.model)}`}
+                  to={`/products/${encodeURIComponent(item.category)}/${encodeURIComponent(item.subCategory)}/${encodeURIComponent(item.model)}`}
                 >
                   {item.model}
                 </Link>
@@ -166,7 +166,6 @@ const Inquiry = () => {
         </button>
       </div>
 
-      {/* 彈出視窗：詢價表單 */}
       {showForm && (
         <div
           className="custom-backdrop"
@@ -191,6 +190,7 @@ const Inquiry = () => {
                 form={form}
                 onChange={handleChange}
                 onSubmit={handleSubmit}
+                submitting={submitting} // ✅ 傳給表單
               />
             </div>
           </div>

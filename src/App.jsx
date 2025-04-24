@@ -12,6 +12,7 @@ import './transition.css';
 import ProductDetail from './pages/ProductDetail';
 import Inquiry from './pages/Inquiry';
 import Footer from './components/Footer';
+import OutsourcingForm from './pages/OutsourcingForm';
 import './App.css'
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/products/:cat/:sub/:model" element={<ProductDetail />} />
                     <Route path="/inquiry" element={<Inquiry />} />
+                    <Route path="/services/HistopathologyOutsourcing" element={<OutsourcingForm />} />
                   </Routes>
                 </div>
               </CSSTransition>

@@ -15,6 +15,7 @@ const Contact = () => {
   });
 
   const [cart, setCart] = useState([]);
+  const [submitting, setSubmitting] = useState(false); // ✅ 新增
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('inquiryCart') || '[]');
@@ -39,11 +40,13 @@ const Contact = () => {
     }
 
     const payload = {
-      name, unit, phone, email, message,recaptcha: form.recaptcha,
+      name, unit, phone, email, message,
+      recaptcha: form.recaptcha,
       items: cart,
     };
 
     try {
+      setSubmitting(true); // ✅ 開始 loading
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/inquiry`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -61,6 +64,8 @@ const Contact = () => {
     } catch (err) {
       console.error('發送失敗：', err);
       alert('❌ 發送時發生錯誤');
+    } finally {
+      setSubmitting(false); // ✅ 結束 loading
     }
   };
 
@@ -69,13 +74,12 @@ const Contact = () => {
       <div className="row justify-content-center">
         <div className="col-lg-8 col-md-10">
           <div className="card shadow-sm p-4 contact-form-card">
-            <h2 className="mb-4 text-primary text-center">
-              📨 聯絡我們
-            </h2>
+            <h2 className="mb-4 text-primary text-center">📨 聯絡我們</h2>
             <ContactForm
               form={form}
               onChange={handleChange}
               onSubmit={handleSubmit}
+              submitting={submitting} // ✅ 傳入 loading 狀態
             />
           </div>
         </div>
