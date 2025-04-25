@@ -73,7 +73,7 @@ const Contact = () => {
     <div className="container mt-5 pt-4">
       <div className="row justify-content-center">
         <div className="col-lg-8 col-md-10">
-          <div className="card shadow-sm p-4 contact-form-card">
+        <div className="paper-style-form p-4 shadow contact-form-card">
             <h2 className="mb-4 text-primary text-center">📨 聯絡我們</h2>
             <ContactForm
               form={form}

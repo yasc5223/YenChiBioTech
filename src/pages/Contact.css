@@ -46,4 +46,20 @@
     border-radius: 6px;
     font-size: 1rem;
   }
+  .paper-style-form {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .paper-style-form::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top: 40px solid #f0f0f0;
+    border-left: 40px solid transparent;
+  }
   
