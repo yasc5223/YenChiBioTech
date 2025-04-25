@@ -20,4 +20,12 @@
     color: #dc3545;
     font-size: 0.875em;
   }
+  .contact-form .btn {
+    font-weight: 500;
+  }
+  
+  .contact-form .g-recaptcha {
+    transform: scale(0.92);
+    transform-origin: left;
+  }
   

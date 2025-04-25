@@ -30,7 +30,7 @@ const Contact = () => {
     const { name, unit, phone, email, message } = form;
 
     if (!name || !unit || !phone || !email) {
-      alert('請完整填寫所有欄位');
+      alert('請完整填寫所有必填欄位');
       return;
     }
 
@@ -54,16 +54,16 @@ const Contact = () => {
       });
 
       if (res.ok) {
-        alert('📨 詢價單已成功送出！');
+        alert('📨 完成！將會盡快與您聯繫！');
         localStorage.removeItem('inquiryCart');
         window.dispatchEvent(new Event('inquiry-updated'));
         navigate('/');
       } else {
-        alert('❌ 詢價單送出失敗');
+        alert('❌ 資料發送失敗，請聯繫管理員。');
       }
     } catch (err) {
       console.error('發送失敗：', err);
-      alert('❌ 發送時發生錯誤');
+      alert('❌ 資料發送失敗，請聯繫管理員。');
     } finally {
       setSubmitting(false); // ✅ 結束 loading
     }

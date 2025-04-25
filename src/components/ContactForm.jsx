@@ -72,33 +72,38 @@ const ContactForm = ({ form, onChange, onSubmit, submitting = false }) => {
         />
       </div>
 
-      <div className="mb-3">
-        <ReCAPTCHA
-          sitekey={reCAPTCHAKey}
-          onChange={(token) => setCaptchaToken(token)}
-        />
-        {errors.recaptcha && (
-          <div className="text-danger small mt-1">{errors.recaptcha}</div>
-        )}
-      </div>
+      <div className="d-flex justify-content-between align-items-center flex-wrap gap-3 mt-4">
+  <div>
+    <ReCAPTCHA
+      sitekey={reCAPTCHAKey}
+      onChange={(token) => setCaptchaToken(token)}
+    />
+    {errors.recaptcha && (
+      <div className="text-danger small mt-1">{errors.recaptcha}</div>
+    )}
+  </div>
 
-      <div className="text-end">
-        <button
-          type="submit"
-          className="btn btn-primary d-flex align-items-center justify-content-center"
-          disabled={submitting}
-          style={{ minWidth: '130px', height: '38px' }}
-        >
-          {submitting ? (
-            <>
-              <span className="spinner-border spinner-border-sm me-2" role="status" />
-              送出中...
-            </>
-          ) : (
-            "📮 送出詢價單"
-          )}
-        </button>
-      </div>
+  <div className="text-end">
+    <button
+      type="submit"
+      className="btn btn-primary d-flex align-items-center justify-content-center"
+      disabled={submitting}
+      style={{ minWidth: '140px', height: '40px' }}
+    >
+      {submitting ? (
+        <>
+          <span className="spinner-border spinner-border-sm me-2" role="status" />
+          送出中...
+        </>
+      ) : (
+        <>
+          📮 <span>送出表單</span>
+        </>
+      )}
+    </button>
+  </div>
+</div>
+
     </form>
   );
 };

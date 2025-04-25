@@ -197,7 +197,7 @@ const OutsourcingForm = () => {
                   </>
                 ) : (
                   <>
-                    📮 <span>送出需求</span>
+                    📮 <span>送出表單</span>
                   </>
                 )}
               </button>
