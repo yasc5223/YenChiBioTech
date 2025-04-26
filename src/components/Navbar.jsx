@@ -229,7 +229,7 @@ function Navbar() {
         <div className="container">
           <div className="container d-flex justify-content-between align-items-center">
             <Link className="navbar-brand brand-link" to="/">
-              <img src="商標 (去背).png" alt="" className="nvabar-icon-image" />
+              <img src="logo.png" alt="" className="nvabar-icon-image" />
             </Link>
             <div className="d-flex align-items-center ms-auto gap-3">
               <ul className="nav py-2">
@@ -238,7 +238,7 @@ function Navbar() {
                     關於我們
                   </Link>
                 </li>
-                <DropdownHoverMenu label="產品" links={productionLinks} />
+                <DropdownHoverMenu label="產品介紹" links={productionLinks} />
                 <DropdownHoverMenu label="實驗委託" links={serviceLinks} />
                 <li className="nav-item">
                   <Link className="nav-link" to="/contact">

@@ -56,7 +56,7 @@ const Products = () => {
   useEffect(() => {
     if (level1 && level2 && !level3) {
       const models = Object.entries(productData[level1]?.[level2] || {}).filter(
-        ([key]) => key !== "Image"
+        ([key]) => key !== "Image" && key !== "Icon"
       );
 
       models.forEach(([model]) => {
@@ -170,7 +170,7 @@ const Products = () => {
 
     if (level1 && !level2) {
       const subCategories = Object.entries(productData[level1] || {}).filter(
-        ([key]) => key !== "Image"
+        ([key]) => key !== "Image" && key !== "Icon"
       );
       return (
         <div className="card-responsive-grid">
@@ -189,7 +189,7 @@ const Products = () => {
 
     if (level1 && level2 && !level3) {
       const models = Object.entries(productData[level1]?.[level2] || {}).filter(
-        ([key]) => key !== "Image"
+        ([key]) => key !== "Image" && key !== "Icon"
       );
       return (
         <div className="card-responsive-grid">

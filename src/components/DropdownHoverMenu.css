@@ -94,3 +94,24 @@
   margin-right: 6px;
   vertical-align: middle;
 }
+.dropdown-link-item {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529; /* ➡️ 跟 .dropdown-item 同色 */
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+  font-size: 26px;
+  transition: all 0.2s;
+  text-decoration: none; /* ➡️ 不要藍色底線 */
+}
+
+.dropdown-link-item:hover {
+  color: #16181b;
+  text-decoration: none;
+  background-color: #f8f9fa; /* ➡️ hover 變灰色背景 */
+}
