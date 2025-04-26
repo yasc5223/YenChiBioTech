@@ -1,0 +1,125 @@
+.about-container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.about-banner {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeIn 2s ease-out forwards;
+}
+
+/* 文字外框 */
+.about-text {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  text-align: left;
+  line-height: 1.8;
+  font-size: 1.125rem;
+  color: #333;
+}
+
+/* 標題 */
+.title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #222;
+}
+
+/* 每個段落 */
+.about-text p {
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  gap: 10px;
+}
+
+/* 最後一段不要底線 */
+.about-text p:last-child {
+  border-bottom: none;
+}
+
+/* 小icon設定 */
+.paragraph-icon {
+  width: 24px;
+  height: 24px;
+  user-select: none;
+  flex-shrink: 0;
+  animation: bounceIn 1s ease forwards;
+}
+
+/* 圖片淡入 */
+@keyframes fadeInImage {
+  0% {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 文字淡入 */
+.fade-in-text {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInText 1s ease forwards;
+}
+
+@keyframes fadeInText {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 新增icon出場動畫 bounceIn */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.paragraph-title {
+  font-weight: bold;
+  font-size: 1.5rem; /* 字體比正文大 */
+  margin-bottom: 8px;
+  display: inline-block;
+}
+.card-grid {
+  display: flex;
+  flex-wrap: wrap; /* 允許超過一行就自動換行 */
+  justify-content: left; /* 水平置中 */
+  gap: 10px; /* 卡片間距 */
+  padding: 10px 10px;
+}
+.card-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: cardFadeIn 0.8s ease forwards;
+}
+
+@keyframes cardFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

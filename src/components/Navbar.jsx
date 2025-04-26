@@ -42,7 +42,9 @@ function Navbar() {
 
     links.forEach((link) => {
       const currentPath = [...path, link.label];
-      const toPath = `/products/${currentPath.map(encodeURIComponent).join("/")}`;
+      const toPath = `/products/${currentPath
+        .map(encodeURIComponent)
+        .join("/")}`;
 
       if (link.submenu) {
         result.push({
@@ -75,7 +77,10 @@ function Navbar() {
   }
 
   const updateRecentSearches = (item) => {
-    const updated = [item, ...recentSearches.filter((i) => i.path !== item.path)].slice(0, 5);
+    const updated = [
+      item,
+      ...recentSearches.filter((i) => i.path !== item.path),
+    ].slice(0, 5);
     setRecentSearches(updated);
     localStorage.setItem("recentSearches", JSON.stringify(updated));
   };
@@ -119,10 +124,10 @@ function Navbar() {
           return {
             label: mainCategory,
             to: items.url,
-            Icon: items.Icon
+            Icon: items.Icon,
           };
         }
-    
+
         const submenu = Object.entries(items)
           .filter(([k]) => k !== "Image")
           .map(([subCategory, models]) => {
@@ -131,10 +136,10 @@ function Navbar() {
               return {
                 label: subCategory,
                 to: models.url,
-                Icon: models.Icon
+                Icon: models.Icon,
               };
             }
-    
+
             const modelItems = Object.entries(models)
               .filter(([model]) => model !== "Image")
               .map(([model, details]) => {
@@ -143,32 +148,38 @@ function Navbar() {
                   label: model,
                   to:
                     isModelLink ||
-                    `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}/${encodeURIComponent(model)}`,
+                    `/products/${encodeURIComponent(
+                      mainCategory
+                    )}/${encodeURIComponent(subCategory)}/${encodeURIComponent(
+                      model
+                    )}`,
                   info: details?.Information,
-                  Icon: details?.Icon
+                  Icon: details?.Icon,
                 };
               });
             return {
               label: subCategory,
-              to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}`,
+              to: `/products/${encodeURIComponent(
+                mainCategory
+              )}/${encodeURIComponent(subCategory)}`,
               submenu: modelItems,
-              Icon: models.Icon
+              Icon: models.Icon,
             };
           });
-        
+
         return {
           label: mainCategory,
           to: `/products/${encodeURIComponent(mainCategory)}`,
           submenu: submenu,
-          Icon: items.Icon
+          Icon: items.Icon,
         };
       });
-    
 
     const processServicesData = (data) =>
       Object.entries(data).map(([mainCategory, items]) => {
         const isMainLink = items.url && items.url.trim();
-        if (isMainLink) return { label: mainCategory, to: items.url,Icon: items.Icon };
+        if (isMainLink)
+          return { label: mainCategory, to: items.url, Icon: items.Icon };
         const submenu = Object.entries(items)
           .filter(([k]) => k !== "Image")
           .map(([subCategory, models]) => {
@@ -176,22 +187,28 @@ function Navbar() {
               .filter(([model]) => model !== "Image")
               .map(([model, details]) => ({
                 label: model,
-                to: `/services/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}/${encodeURIComponent(model)}`,
+                to: `/services/${encodeURIComponent(
+                  mainCategory
+                )}/${encodeURIComponent(subCategory)}/${encodeURIComponent(
+                  model
+                )}`,
                 info: details.Information,
-                Icon: details.Icon
+                Icon: details.Icon,
               }));
             return {
               label: subCategory,
-              to: `/services/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}`,
+              to: `/services/${encodeURIComponent(
+                mainCategory
+              )}/${encodeURIComponent(subCategory)}`,
               submenu: modelItems,
-              Icon: models.Icon
+              Icon: models.Icon,
             };
           });
         return {
           label: mainCategory,
           to: `/services/${encodeURIComponent(mainCategory)}`,
           submenu: submenu,
-          Icon: items.Icon
+          Icon: items.Icon,
         };
       });
 
@@ -208,78 +225,117 @@ function Navbar() {
 
   return (
     <>
-      <nav className="navbar navbar-dark bg-dark fixed-top">
-        <div className="container d-flex justify-content-between align-items-center">
-          <Link className="navbar-brand" to="/">YenChiBioTech</Link>
-
-          <div className="d-flex align-items-center search-container">
-            <FaSearch style={{ color: "white", marginRight: "8px" }} />
-            <input
-              type="text"
-              className="form-control search-input"
-              placeholder="搜尋產品型號..."
-              value={searchText}
-              onChange={handleSearchChange}
-              onKeyDown={handleKeyDown}
-              onFocus={() => setSearchFocused(true)}
-              onBlur={() => setTimeout(() => setSearchFocused(false), 150)}
-            />
-            {searchText && searchResults.length > 0 && (
-              <ul className="search-dropdown">
-                {searchResults.map((result, i) => (
-                  <li key={i} className="search-dropdown-item" onClick={() => handleResultClick(result.path, result.label)}>
-                    {result.label}
-                    <span className="search-dropdown-path">
-                      {decodeURIComponent(result.path.replace(/^\/products\//, "").replace(/\//g, " / "))}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {searchText && searchResults.length === 0 && (
-              <ul className="search-dropdown">
-                <li className="search-dropdown-item">查無產品</li>
-              </ul>
-            )}
-            {searchFocused && searchText === "" && recentSearches.length > 0 && (
-              <ul className="search-dropdown">
-                <li className="search-dropdown-item d-flex justify-content-between align-items-center text-muted">
-                  <span>最近搜尋</span>
-                  <button className="btn btn-sm btn-link text-danger p-0 m-0 ms-auto" onClick={(e) => {
-                    e.stopPropagation();
-                    clearRecentSearches();
-                  }}>清除</button>
-                </li>
-                {recentSearches.map((item, i) => (
-                  <li key={i} className="search-dropdown-item" onClick={() => handleResultClick(item.path, item.label)}>
-                    {item.label}
-                    <span className="search-dropdown-path">
-                      {decodeURIComponent(item.path.replace(/^\/products\//, "").replace(/\//g, " / "))}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <Link to="/inquiry" className="text-white position-relative ms-3">
-              <FiShoppingCart size={20} />
-              {inquiryCount > 0 && (
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  {inquiryCount}
-                </span>
-              )}
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      <div className="bg-light border-bottom sticky-top nav-secondary">
+      <div className="border-bottom sticky-top nav-secondary">
         <div className="container">
-          <ul className="nav justify-content-center py-2">
-            <li className="nav-item"><Link className="nav-link" to="/about">關於我們</Link></li>
-            <DropdownHoverMenu label="產品" links={productionLinks} />
-            <DropdownHoverMenu label="實驗委託" links={serviceLinks} />
-            <li className="nav-item"><Link className="nav-link" to="/contact">聯絡我們</Link></li>
-          </ul>
+          <div className="container d-flex justify-content-between align-items-center">
+            <Link className="navbar-brand brand-link" to="/">
+              <img src="商標 (去背).png" alt="" className="nvabar-icon-image" />
+            </Link>
+            <div className="d-flex align-items-center ms-auto gap-3">
+              <ul className="nav py-2">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/about">
+                    關於我們
+                  </Link>
+                </li>
+                <DropdownHoverMenu label="產品" links={productionLinks} />
+                <DropdownHoverMenu label="實驗委託" links={serviceLinks} />
+                <li className="nav-item">
+                  <Link className="nav-link" to="/contact">
+                    聯絡我們
+                  </Link>
+                </li>
+              </ul>
+              <div className="d-flex align-items-center search-container">
+                <FaSearch style={{ color: "black", marginRight: "8px" }} />
+                <input
+                  type="text"
+                  className="form-control search-input"
+                  placeholder="搜尋產品型號..."
+                  value={searchText}
+                  style={{ width: "200px",fontSize: 20 }} /* 搜尋框寬度控制在200px */
+                  onChange={handleSearchChange}
+                  onKeyDown={handleKeyDown}
+                  onFocus={() => setSearchFocused(true)}
+                  onBlur={() => setTimeout(() => setSearchFocused(false), 150)}
+                />
+                {searchText && searchResults.length > 0 && (
+                  <ul className="search-dropdown">
+                    {searchResults.map((result, i) => (
+                      <li
+                        key={i}
+                        className="search-dropdown-item"
+                        onClick={() =>
+                          handleResultClick(result.path, result.label)
+                        }
+                      >
+                        {result.label}
+                        <span className="search-dropdown-path">
+                          {decodeURIComponent(
+                            result.path
+                              .replace(/^\/products\//, "")
+                              .replace(/\//g, " / ")
+                          )}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {searchText && searchResults.length === 0 && (
+                  <ul className="search-dropdown">
+                    <li className="search-dropdown-item">查無產品</li>
+                  </ul>
+                )}
+                {searchFocused &&
+                  searchText === "" &&
+                  recentSearches.length > 0 && (
+                    <ul className="search-dropdown">
+                      <li className="search-dropdown-item d-flex justify-content-between align-items-center text-muted">
+                        <span>最近搜尋</span>
+                        <button
+                          className="btn btn-sm btn-link text-danger p-0 m-0 ms-auto"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            clearRecentSearches();
+                          }}
+                        >
+                          清除
+                        </button>
+                      </li>
+                      {recentSearches.map((item, i) => (
+                        <li
+                          key={i}
+                          className="search-dropdown-item"
+                          onClick={() =>
+                            handleResultClick(item.path, item.label)
+                          }
+                        >
+                          {item.label}
+                          <span className="search-dropdown-path">
+                            {decodeURIComponent(
+                              item.path
+                                .replace(/^\/products\//, "")
+                                .replace(/\//g, " / ")
+                            )}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                <Link
+                  to="/inquiry"
+                  className="text-dark position-relative ms-3"
+                >
+                  <FiShoppingCart size={30} />
+                  {inquiryCount > 0 && (
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger badge-smaller">
+                      {inquiryCount}
+                    </span>
+                  )}
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

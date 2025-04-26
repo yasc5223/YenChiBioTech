@@ -1,4 +1,11 @@
-html, body {
+@font-face {
+  font-family: '仿宋體'; /* 自己取的名字 */
+  src: url('./assets/fonts/ZhuqueFangsong-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+  html, body {
+    font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
     height: 100%;
     margin: 0;
   }

@@ -1,0 +1,26 @@
+.card {
+    width: 240px;
+    height: 180px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin: 20px;
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+  }
+  
+  .card-image {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    user-select: none;
+  }
+  
