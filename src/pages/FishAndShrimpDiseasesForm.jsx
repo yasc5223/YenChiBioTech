@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import "./OutsourcingForm.css";
+import "./FishAndShrimpDiseasesForm.css";
 
-const OutsourcingForm = () => {
+const FishAndShrimpDiseasesForm = () => {
   const [form, setForm] = useState({
     organization: "",
     contactPerson: "",
@@ -17,16 +17,21 @@ const OutsourcingForm = () => {
   const [errors, setErrors] = useState({});
   const [captchaToken, setCaptchaToken] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [servicesList, setServicesList] = useState([]);
   const reCAPTCHAKey = import.meta.env.VITE_RECAPTCHA_KEY;
 
-  const servicesList = [
-    "製作蠟塊",
-    "切空白切片",
-    "染 HE",
-    "特殊染色",
-    "玻片掃描",
-    "IHC染色 (自備抗體，會與您溝通稀釋倍數)",
-    "IF螢光染色(紅綠藍)"
+  const fishServicesList = [
+    "神經壞死病毒",
+    "虹彩病毒-Ranaviruses",
+    "虹彩病毒-Megalocytivirus",
+  ];
+
+  const shrimpServicesList = [
+    "副溶血弧菌(產毒基因)",
+    "肝胰腺微胞子蟲",
+    "白點病毒",
+    "虹彩病毒",
+    "副溶血弧菌(玻璃苗)",
   ];
 
   useEffect(() => {
@@ -34,6 +39,17 @@ const OutsourcingForm = () => {
       setForm((prev) => ({ ...prev, recaptcha: captchaToken }));
     }
   }, [captchaToken]);
+
+  useEffect(() => {
+    if (form.species === "魚類") {
+      setServicesList(fishServicesList);
+    } else if (form.species === "蝦類") {
+      setServicesList(shrimpServicesList);
+    } else {
+      setServicesList([]);
+    }
+    setForm((prev) => ({ ...prev, services: [] }));
+  }, [form.species]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -57,22 +73,21 @@ const OutsourcingForm = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-
+  
     setSubmitting(true);
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/outsourcing`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/fishshrimp`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(form),
         }
       );
-
+  
       if (res.ok) {
         alert("✅ 表單送出成功！感謝您！");
         setForm({
@@ -97,25 +112,27 @@ const OutsourcingForm = () => {
       setSubmitting(false);
     }
   };
+  
 
   return (
     <div className="outsourcing-form-container">
       <div className="paper-style-form p-4 shadow" style={{ maxWidth: "800px", width: "100%", wordWrap: "break-word", overflowWrap: "break-word" }}>
-        <h3 className="mb-4 text-primary text-center">🧪 病理組織代工需求單</h3>
-        <p className="text-muted mb-4 text-center">
-          感謝您選擇研質生技為您服務，為了維持品質，檢體請以
-          <strong> 10倍體積的福馬林保存呦～</strong>
-        </p>
+        <h3 className="mb-4 text-primary text-center">🧪 魚蝦疾病病原檢測需求單</h3>
+        <h4 className="text-muted mb-4 text-center">
+          <strong>
+            檢體準備: 準備臟器冷藏或冷凍即可，不須泡在任何液體中，請先聯繫我們，不同病原需要測對應之臟器。
+          </strong>
+        </h4>
+
 
         <form onSubmit={handleSubmit}>
-          {[
-            { name: "organization", label: "單位名稱 *" },
-            { name: "contactPerson", label: "聯絡人 *" },
-            { name: "contactInfo", label: "聯絡方式（Email 或電話）*" },
-            { name: "species", label: "組織物種 *" },
-          ].map(({ name, label }) => (
+          {["organization", "contactPerson", "contactInfo"].map((name) => (
             <div className="mb-3" key={name}>
-              <label className="form-label fw-bold">{label}</label>
+              <label className="form-label fw-bold">
+                {name === "organization" && "單位名稱 *"}
+                {name === "contactPerson" && "聯絡人 *"}
+                {name === "contactInfo" && "聯絡方式（Email 或電話）*"}
+              </label>
               <input
                 type="text"
                 className={`form-control ${errors[name] ? "is-invalid" : ""}`}
@@ -129,31 +146,51 @@ const OutsourcingForm = () => {
             </div>
           ))}
 
-          <div className="mb-4">
-            <label className="form-label fw-bold">委託需求（可複選）*</label>
-            <div className="row">
-              {servicesList.map((s, idx) => (
-                <div className="col-md-6" key={idx}>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value={s}
-                      checked={form.services.includes(s)}
-                      onChange={handleServiceChange}
-                      id={`service-${idx}`}
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor={`service-${idx}`}
-                    >
-                      {s}
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="mb-3">
+            <label className="form-label fw-bold">檢體物種 *</label>
+            <p className="text-muted small">※ 請先選擇檢體物種，選單將依物種顯示可選項目</p>
+            <select
+              className={`form-select ${errors.species ? "is-invalid" : ""}`}
+              name="species"
+              value={form.species}
+              onChange={handleChange}
+            >
+              <option value="">請選擇</option>
+              <option value="魚類">魚類</option>
+              <option value="蝦類">蝦類</option>
+            </select>
+            {errors.species && (
+              <div className="invalid-feedback">{errors.species}</div>
+            )}
           </div>
+
+          {servicesList.length > 0 && (
+            <div className="mb-4">
+              <label className="form-label fw-bold">委託需求（可複選）*</label>
+              <div className="row">
+                {servicesList.map((s, idx) => (
+                  <div className="col-md-6" key={idx}>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value={s}
+                        checked={form.services.includes(s)}
+                        onChange={handleServiceChange}
+                        id={`service-${idx}`}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor={`service-${idx}`}
+                      >
+                        {s}
+                      </label>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="mb-4">
             <label className="form-label fw-bold">其他需求詢問</label>
@@ -209,4 +246,4 @@ const OutsourcingForm = () => {
   );
 };
 
-export default OutsourcingForm;
+export default FishAndShrimpDiseasesForm;

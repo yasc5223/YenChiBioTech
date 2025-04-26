@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import "./OutsourcingForm.css";
+import "./BloodBiochemicalAnalysisForm.css";
 
-const OutsourcingForm = () => {
+const BloodBiochemicalAnalysisForm = () => {
   const [form, setForm] = useState({
     organization: "",
     contactPerson: "",
@@ -20,13 +20,25 @@ const OutsourcingForm = () => {
   const reCAPTCHAKey = import.meta.env.VITE_RECAPTCHA_KEY;
 
   const servicesList = [
-    "製作蠟塊",
-    "切空白切片",
-    "染 HE",
-    "特殊染色",
-    "玻片掃描",
-    "IHC染色 (自備抗體，會與您溝通稀釋倍數)",
-    "IF螢光染色(紅綠藍)"
+    "白蛋白(Albumin)",
+    "鹼性破酶(ALP)",
+    "澱粉酸(Amvlase)",
+    "丙阪酸轉胺願(ALT)",
+    "天門冬胺駿轉胺醇(AST)",
+    "直接膽紅素(DBIL)",
+    "膽紅素(TBIL)",
+    "膽固醇(Cholesterol)",
+    "y-穀氨驅轉肽酶(GGT)",
+    "血糖(Glucose)",
+    "總蛋白(Total Protein)",
+    "尿素氨(Urea Nitrogen)",
+    "乳酸脱氧酶(LDH)",
+    "高密度脂蛋白膽固醇(HDL-Cholesterol)",
+    "低密度脂蛋白膽固醇(LDL-Cholesterol)",
+    "肌酸激酸(Creatine Kinase)",
+    "尿酸(Uric Acid)",
+    "鈣(Calcium)",
+    "三酸甘油脂(Triglyceride)"
   ];
 
   useEffect(() => {
@@ -65,7 +77,7 @@ const OutsourcingForm = () => {
     setSubmitting(true);
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/outsourcing`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/bloodbiochemicalanalysis`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -101,17 +113,19 @@ const OutsourcingForm = () => {
   return (
     <div className="outsourcing-form-container">
       <div className="paper-style-form p-4 shadow" style={{ maxWidth: "800px", width: "100%", wordWrap: "break-word", overflowWrap: "break-word" }}>
-        <h3 className="mb-4 text-primary text-center">🧪 病理組織代工需求單</h3>
-        <p className="text-muted mb-4 text-center">
-          感謝您選擇研質生技為您服務，為了維持品質，檢體請以
-          <strong> 10倍體積的福馬林保存呦～</strong>
-        </p>
+        <h3 className="mb-4 text-primary text-center">🧪 血液生化檢驗</h3>
+        <h4 className="text-muted mb-4 text-center">
+          <strong>
+            檢體準備:血清(serum)，最少準備血清量100ul<br/>每增加一個檢測項目，血清量需增加10 ul
+            </strong>
+        </h4>
 
         <form onSubmit={handleSubmit}>
           {[
             { name: "organization", label: "單位名稱 *" },
             { name: "contactPerson", label: "聯絡人 *" },
             { name: "contactInfo", label: "聯絡方式（Email 或電話）*" },
+            { name: "invoice", label: "發票抬頭與統編" },
             { name: "species", label: "組織物種 *" },
           ].map(({ name, label }) => (
             <div className="mb-3" key={name}>
@@ -209,4 +223,4 @@ const OutsourcingForm = () => {
   );
 };
 
-export default OutsourcingForm;
+export default BloodBiochemicalAnalysisForm;

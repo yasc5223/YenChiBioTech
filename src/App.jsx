@@ -13,6 +13,8 @@ import ProductDetail from './pages/ProductDetail';
 import Inquiry from './pages/Inquiry';
 import Footer from './components/Footer';
 import OutsourcingForm from './pages/OutsourcingForm';
+import BloodBiochemicalAnalysisForm from './pages/BloodBiochemicalAnalysisForm';
+import FishAndShrimpDiseasesForm from './pages/FishAndShrimpDiseasesForm';
 import './App.css'
 
 function App() {
@@ -62,6 +64,8 @@ function App() {
                     <Route path="/products/:cat/:sub/:model" element={<ProductDetail />} />
                     <Route path="/inquiry" element={<Inquiry />} />
                     <Route path="/services/HistopathologyOutsourcing" element={<OutsourcingForm />} />
+                    <Route path="/services/BloodBiochemicalAnalysis" element={<BloodBiochemicalAnalysisForm />} />
+                    <Route path="/services/FishAndShrimpDiseases" element={<FishAndShrimpDiseasesForm />} />
                   </Routes>
                 </div>
               </CSSTransition>

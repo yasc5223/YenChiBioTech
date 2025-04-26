@@ -85,3 +85,9 @@
   left: 100%;
   margin-left: 0; /* ⬅️ 避免產生中間空白 */
 }
+.icon-image {
+  width: 30px;
+  height: 30px;
+  margin-right: 6px;
+  vertical-align: middle;
+}

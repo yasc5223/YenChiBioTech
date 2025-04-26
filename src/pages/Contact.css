@@ -62,4 +62,12 @@
     border-top: 40px solid #f0f0f0;
     border-left: 40px solid transparent;
   }
+  .info-card {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  
+  .info-card .ratio {
+    border: 1px solid #ddd;
+  }
   

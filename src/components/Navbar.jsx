@@ -119,6 +119,7 @@ function Navbar() {
           return {
             label: mainCategory,
             to: items.url,
+            Icon: items.Icon
           };
         }
     
@@ -130,6 +131,7 @@ function Navbar() {
               return {
                 label: subCategory,
                 to: models.url,
+                Icon: models.Icon
               };
             }
     
@@ -143,20 +145,22 @@ function Navbar() {
                     isModelLink ||
                     `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}/${encodeURIComponent(model)}`,
                   info: details?.Information,
+                  Icon: details?.Icon
                 };
               });
-    
             return {
               label: subCategory,
               to: `/products/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}`,
               submenu: modelItems,
+              Icon: models.Icon
             };
           });
-    
+        
         return {
           label: mainCategory,
           to: `/products/${encodeURIComponent(mainCategory)}`,
-          submenu,
+          submenu: submenu,
+          Icon: items.Icon
         };
       });
     
@@ -164,7 +168,7 @@ function Navbar() {
     const processServicesData = (data) =>
       Object.entries(data).map(([mainCategory, items]) => {
         const isMainLink = items.url && items.url.trim();
-        if (isMainLink) return { label: mainCategory, to: items.url };
+        if (isMainLink) return { label: mainCategory, to: items.url,Icon: items.Icon };
         const submenu = Object.entries(items)
           .filter(([k]) => k !== "Image")
           .map(([subCategory, models]) => {
@@ -174,17 +178,20 @@ function Navbar() {
                 label: model,
                 to: `/services/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}/${encodeURIComponent(model)}`,
                 info: details.Information,
+                Icon: details.Icon
               }));
             return {
               label: subCategory,
               to: `/services/${encodeURIComponent(mainCategory)}/${encodeURIComponent(subCategory)}`,
               submenu: modelItems,
+              Icon: models.Icon
             };
           });
         return {
           label: mainCategory,
           to: `/services/${encodeURIComponent(mainCategory)}`,
-          submenu,
+          submenu: submenu,
+          Icon: items.Icon
         };
       });
 

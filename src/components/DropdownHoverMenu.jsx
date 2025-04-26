@@ -15,7 +15,7 @@ function DropdownHoverMenu({ label, links }) {
       onMouseLeave={() => setIsOpen(false)}
     >
       <span className="nav-link dropdown-toggle" role="button">
-        {label}
+      {links.Icon && <img src={links.Icon} alt="" className="icon-image" />}{label}
       </span>
 
       {isOpen && (
@@ -29,11 +29,11 @@ function DropdownHoverMenu({ label, links }) {
                 {hasSub ? (
                   <>
                     <span className="dropdown-item dropdown-item-content">
-                      <span>{link.label}</span>
+                      <span>{link.Icon && <img src={link.Icon} alt="" className="icon-image" />}{link.label}</span>
                       <FiChevronRight className="arrow-icon" />
                     </span>
                     <div className="dropdown-menu">
-                      {link.submenu.map((subLink, subIndex) => {
+                      {link.submenu.filter((link) => link.label != "Icon").map((subLink, subIndex) => {
                         const isSubExternal = subLink.to?.startsWith('http');
                         return isSubExternal ? (
                           <a
@@ -43,7 +43,7 @@ function DropdownHoverMenu({ label, links }) {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            {subLink.label}
+                            {subLink.Icon && <img src={subLink.Icon} alt="" className="icon-image" />}{subLink.label}
                           </a>
                         ) : (
                           <Link
@@ -51,7 +51,7 @@ function DropdownHoverMenu({ label, links }) {
                             className="dropdown-item"
                             to={subLink.to}
                           >
-                            {subLink.label}
+                            {subLink.Icon && <img src={subLink.Icon} alt="" className="icon-image" />}{subLink.label}
                           </Link>
                         );
                       })}
@@ -64,11 +64,11 @@ function DropdownHoverMenu({ label, links }) {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {link.label}
+                    {link.Icon && <img src={link.Icon} alt="" className="icon-image" />}{link.label}
                   </a>
                 ) : (
                   <Link className="dropdown-item" to={link.to}>
-                    {link.label}
+                    {link.Icon && <img src={link.Icon} alt="" className="icon-image" />}{link.label}
                   </Link>
                 )}
               </div>
