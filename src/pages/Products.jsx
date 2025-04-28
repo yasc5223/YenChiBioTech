@@ -116,12 +116,14 @@ const Products = () => {
         onClick={onClick}
       >
         {image && (
-          <img
-            src={image}
-            alt={title}
-            onError={(e) => (e.currentTarget.src = fallbackImage)}
-            className="card-img-top card-img-fit"
-          />
+          <div className="card-img-wrapper">
+            <img
+              src={image}
+              alt={title}
+              onError={(e) => (e.currentTarget.src = fallbackImage)}
+              className="card-img-top card-img-fit"
+            />
+          </div>
         )}
         <div className="card-body">
           <h6 className="card-title mb-1">
@@ -175,7 +177,7 @@ const Products = () => {
       return (
         <div className="card-responsive-grid">
           {subCategories.map(([sub, data]) =>
-            renderCard(data.HideCardTitle ? '':sub, data.Image, () => {
+            renderCard(data.HideCardTitle ? "" : sub, data.Image, () => {
               if (data.url) {
                 window.open(data.url, "_blank");
               } else {
@@ -197,25 +199,24 @@ const Products = () => {
             const info = data?.Information;
             const image = info?.Images?.[0] || modelImages[model];
             const externalUrl = data?.url;
-      
+
             const handleClick = () => {
               if (externalUrl) {
-                window.open(externalUrl, '_blank', 'noopener noreferrer');
+                window.open(externalUrl, "_blank", "noopener noreferrer");
               } else {
                 navigate(`/products/${level1}/${level2}/${model}`);
               }
             };
-      
+
             return renderCard(
-              data.HideCardTitle ? '':(info?.ExternalTitle || model),
+              data.HideCardTitle ? "" : info?.ExternalTitle || model,
               image,
               handleClick,
-              ''
+              ""
             );
           })}
         </div>
       );
-      
     }
 
     if (level1 && level2 && level3) {
