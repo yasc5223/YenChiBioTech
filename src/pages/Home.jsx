@@ -4,9 +4,7 @@ import './Home.css'; // 確保有引入 CSS
 
 function Home() {
   const newsList = [
-    { id: 1, title: "新品上市 - 免疫檢測試劑組", date: "2025-04-28" },
-    { id: 2, title: "網站全新改版上線", date: "2025-04-20" },
-    { id: 3, title: "參加 2025 生技展覽", date: "2025-03-15" },
+    { id: 1, title: "網站全新上線", date: "2025-04-28" },
   ];
 
   return (
