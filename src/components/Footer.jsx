@@ -9,32 +9,39 @@ const Footer = () => {
       <div className="container">
         <div className="row">
 
-          {/* 公司資訊 */}
+          {/* 公司資訊
+          研質生技有限公司
+Yenchi Biotech LTD
+
+電話: 先空白
+傳真: 04-24637008
+Email: info@yenchibio.com.tw
+地址: 台中市西屯科園路19號3F301室
+3F-301, No. 19, Keyuan Rd.  Xitun Dist., Taichung City 407  
+Taiwan (R.O.C.)
+          */}
           <div className="col-md-4 mb-3">
-            <p className="small mb-1">通訊地址: 台中市西屯區科園路19號3F301室</p>
+            <p className="small mb-1">研質生技有限公司</p>
+            <p className="small mb-1">Yenchi Biotech LTD</p>
+            <p className="small mb-1">電話: </p>
             <p className="small mb-1">Email: info@yenchibio.com.tw</p>
+            <p className="small mb-1">地址: 台中市西屯區科園路19號3F301室</p>
+            <p className="small mb-1">3F-301, No. 19, Keyuan Rd.  Xitun Dist., Taichung City 407</p>
+            <p className="small mb-1">Taiwan (R.O.C.)</p>
           </div>
 
           {/* 快速連結 */}
           <div className="col-md-4 mb-3">
-            <h6>快速連結</h6>
-            <ul className="list-unstyled small">
-              <li><Link className="footer-link" to="/about">關於我們</Link></li>
-              <li><Link className="footer-link" to="/products">產品列表</Link></li>
-              <li><Link className="footer-link" to="/contact">聯絡我們</Link></li>
-            </ul>
+            
           </div>
 
           {/* 社群連結 
               <a href="https://facebook.com" className="footer-icon" target="_blank" rel="noreferrer"><FaFacebookF /></a>
               <a href="https://line.me" className="footer-icon" target="_blank" rel="noreferrer"><FaLine /></a>
               */}
-          <div className="col-md-4 mb-3">
-            <h6>關注我們</h6>
-            <div className="d-flex gap-3 mt-2">
-              <a href="mailto:info@yenchibio.com.tw" className="footer-icon"><FaEnvelope /></a>
-            </div>
-          </div>
+          <div className="col-md-4 mb-3 d-flex justify-content-end align-items-start">
+  <img src="LineQRCode.png" alt="" className="footer-icon-image" />
+</div>
         </div>
 
         <div className="text-center footer-note">© 2025 研質生技有限公司 All rights reserved.</div>

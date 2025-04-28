@@ -21,10 +21,16 @@
   .footer {
     background-color: #212529;
     color: white;
-    padding: 0.3rem;
+    padding: 1rem 0; /* 更漂亮 */
     margin-top: auto;
   }
   .footer-note {
     color: #888;
     font-size: 0.85rem;
+  }
+  .footer-icon-image {
+    height: 150px; /* 固定大小 */
+    width: auto;
+    border-radius: 8px; /* 稍微圓角 */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* 小小陰影 */
   }
