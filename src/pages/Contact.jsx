@@ -90,16 +90,14 @@ const Contact = () => {
         {/* 地圖與聯絡資訊 */}
         <div className="col-lg-5">
           <div className="info-card bg-white rounded shadow p-4 h-100">
-            <h5 className="fw-bold mb-3">📍 公司資訊</h5>
-            <p>
-              <strong>公司名稱：</strong>研質生技有限公司
-            </p>
-            <p>
-              <strong>Email：</strong>info@yenchibio.com.tw
-            </p>
-            <p>
-              <strong>地址：</strong>台中市西屯區科園路19號3F301室
-            </p>
+            <h4>
+              研質生技有限公司
+            </h4>
+            <h5>Yenchi Biotech LTD</h5>
+            <p className="small mb-1">電話: </p>
+            <p className="small mb-1">傳真: 04-24637008</p>
+            <p className="small mb-1">Email: info@yenchibio.com.tw</p>
+            <p className="small mb-1">地址: 台中市西屯區科園路19號3F301室</p>
             <div className="ratio ratio-4x3 rounded overflow-hidden mt-3">
               <iframe
                 title="Google Map"
