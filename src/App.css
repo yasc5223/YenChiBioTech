@@ -8,6 +8,14 @@
     font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
     height: 100%;
     margin: 0;
+    
+  background-color: #f5f5f5; /* 你可以換成你要的顏色 */
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
+    url('/backgound.jpeg'); /* 如果想用圖片 */
+  background-size: cover; /* 圖片鋪滿 */
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* 固定背景 */
   }
   
   .app-wrapper {

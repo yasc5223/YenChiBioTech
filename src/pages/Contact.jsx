@@ -49,11 +49,14 @@ const Contact = () => {
     };
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/inquiry`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/inquiry`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
 
       if (res.ok) {
         alert("📨 詢價單已成功送出！");
@@ -76,7 +79,11 @@ const Contact = () => {
         <div className="col-lg-7">
           <div className="paper-style-form p-4 shadow contact-form-card">
             <h2 className="mb-4 text-primary text-center">📨 聯絡我們</h2>
-            <ContactForm form={form} onChange={handleChange} onSubmit={handleSubmit} />
+            <ContactForm
+              form={form}
+              onChange={handleChange}
+              onSubmit={handleSubmit}
+            />
           </div>
         </div>
 
@@ -84,14 +91,19 @@ const Contact = () => {
         <div className="col-lg-5">
           <div className="info-card bg-white rounded shadow p-4 h-100">
             <h5 className="fw-bold mb-3">📍 公司資訊</h5>
-            <p><strong>公司名稱：</strong>研質生技股份有限公司</p>
-            <p><strong>電話：</strong>(02) 1234-5678</p>
-            <p><strong>Email：</strong>info@yentech.com.tw</p>
-            <p><strong>地址：</strong>台北市中山區某某路 123 號</p>
+            <p>
+              <strong>公司名稱：</strong>研質生技有限公司
+            </p>
+            <p>
+              <strong>Email：</strong>info@yenchibio.com.tw
+            </p>
+            <p>
+              <strong>地址：</strong>台中市西屯區科園路19號3F301室
+            </p>
             <div className="ratio ratio-4x3 rounded overflow-hidden mt-3">
               <iframe
                 title="Google Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3625.1066132322766!2d121.548997!3d25.036448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abcd12345678%3A0x9876543210abcdef!2z5qGD6aSo6Lev5a246Kit5a2X!5e0!3m2!1szh-TW!2stw!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d945.489312234268!2d120.60968806245576!3d24.20365805143973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346915dd2730b653%3A0xe513d48bc91d141e!2zNDA35Y-w54Gj5Y-w5Lit5biC6KW_5bGv5Y2A56eR5ZyS6LevMTnomZ8!5e0!3m2!1szh-TW!2sus!4v1745803013629!5m2!1szh-TW!2sus"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

@@ -35,17 +35,7 @@ function App() {
       <Navbar />
       <main className="app-main flex-grow-1">
         <div className="container mt-5 pt-3">
-          {loading ? (
-            <div className="d-flex justify-content-center align-items-center" style={{ height: '60vh' }}>
-              <img
-                src="/spinner.svg"
-                alt="載入中..."
-                className="custom-spinner-img"
-                width="80"
-                height="80"
-              />
-            </div>
-          ) : (
+          {
             <TransitionGroup>
               <CSSTransition
                 key={location.pathname}
@@ -70,7 +60,7 @@ function App() {
                 </div>
               </CSSTransition>
             </TransitionGroup>
-          )}
+          }
         </div>
       </main>
       <Footer />

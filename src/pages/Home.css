@@ -3,12 +3,53 @@
 }
 
 .carousel-item {
-  height: 200px;
+  min-height: 300px; /* 至少 300px */
   background-color: #f8f9fa;
 }
 
 .carousel-item img {
-  height: 100%;
   width: 100%;
-  object-fit: contain;
+  height: auto; /* 高度自適應 */
+  object-fit: cover; /* 或 contain 看你的需求 */
+}
+
+/* 新增 最新消息 區塊樣式 */
+.news-section {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 1rem;
+  border-top: 2px solid #ccc;
+}
+
+.news-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.news-list {
+  list-style: none;
+  padding: 0;
+}
+
+.news-item {
+  padding: 0.8rem;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.3s, transform 0.2s;
+  cursor: pointer;
+}
+
+.news-item:hover {
+  background-color: #f1f1f1;
+  transform: translateX(5px);
+}
+
+.news-date {
+  font-weight: bold;
+  color: #666;
+}
+
+.news-text {
+  color: #444;
 }

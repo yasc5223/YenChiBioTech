@@ -117,7 +117,7 @@ const FishAndShrimpDiseasesForm = () => {
   return (
     <div className="outsourcing-form-container">
       <div className="paper-style-form p-4 shadow" style={{ maxWidth: "800px", width: "100%", wordWrap: "break-word", overflowWrap: "break-word" }}>
-        <h3 className="mb-4 text-primary text-center">🧪 魚蝦疾病病原檢測需求單</h3>
+        <h3 className="mb-4 text-primary text-center">魚蝦疾病病原檢測需求單</h3>
         <h4 className="text-muted mb-4 text-center">
           <strong>
             檢體準備: 準備臟器冷藏或冷凍即可，不須泡在任何液體中，請先聯繫我們，不同病原需要測對應之臟器。

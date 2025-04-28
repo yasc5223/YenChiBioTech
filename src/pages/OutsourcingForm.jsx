@@ -101,12 +101,13 @@ const OutsourcingForm = () => {
   return (
     <div className="outsourcing-form-container">
       <div className="paper-style-form p-4 shadow" style={{ maxWidth: "800px", width: "100%", wordWrap: "break-word", overflowWrap: "break-word" }}>
-        <h3 className="mb-4 text-primary text-center">🧪 病理組織代工需求單</h3>
-        <p className="text-muted mb-4 text-center">
-          感謝您選擇研質生技為您服務，為了維持品質，檢體請以
-          <strong> 10倍體積的福馬林保存呦～</strong>
-        </p>
-
+        <h3 className="mb-4 text-primary text-center">病理組織代工需求單</h3>
+        
+        <h4 className="text-muted mb-4 text-center">
+          <strong>
+          感謝您選擇研質生技為您服務，為了維持品質，檢體請以10倍體積的福馬林保存呦～
+          </strong>
+        </h4>
         <form onSubmit={handleSubmit}>
           {[
             { name: "organization", label: "單位名稱 *" },

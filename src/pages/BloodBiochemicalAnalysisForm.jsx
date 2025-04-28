@@ -7,7 +7,6 @@ const BloodBiochemicalAnalysisForm = () => {
     organization: "",
     contactPerson: "",
     contactInfo: "",
-    invoice: "",
     species: "",
     services: [],
     others: "",
@@ -113,7 +112,7 @@ const BloodBiochemicalAnalysisForm = () => {
   return (
     <div className="outsourcing-form-container">
       <div className="paper-style-form p-4 shadow" style={{ maxWidth: "800px", width: "100%", wordWrap: "break-word", overflowWrap: "break-word" }}>
-        <h3 className="mb-4 text-primary text-center">🧪 血液生化檢驗</h3>
+        <h3 className="mb-4 text-primary text-center">血液生化檢驗</h3>
         <h4 className="text-muted mb-4 text-center">
           <strong>
             檢體準備:血清(serum)，最少準備血清量100ul<br/>每增加一個檢測項目，血清量需增加10 ul
@@ -125,7 +124,6 @@ const BloodBiochemicalAnalysisForm = () => {
             { name: "organization", label: "單位名稱 *" },
             { name: "contactPerson", label: "聯絡人 *" },
             { name: "contactInfo", label: "聯絡方式（Email 或電話）*" },
-            { name: "invoice", label: "發票抬頭與統編" },
             { name: "species", label: "組織物種 *" },
           ].map(({ name, label }) => (
             <div className="mb-3" key={name}>
