@@ -111,10 +111,10 @@ const Products = () => {
   const renderCard = (title, image, onClick, description) => (
     <div className="card-item" key={title}>
       <div
-        className="card card-fixed shadow-sm"
-        style={{ cursor: "pointer" }}
-        onClick={onClick}
-      >
+      className={`card card-fixed shadow-sm ${!image ? 'no-image' : ''}`}
+      style={{ cursor: "pointer" }}
+      onClick={onClick}
+    >
         {image && (
           <div className="card-img-wrapper">
             <img
