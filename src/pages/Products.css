@@ -11,11 +11,16 @@
 .card-fixed {
   display: flex;
   flex-direction: column;
-  align-items: center;   /* 水平置中 */
-  justify-content: center; /* 垂直置中 */
-  height: 100%;
+  align-items: center;      /* 水平置中 */
+  justify-content: center;  /* 垂直置中 */
+  min-height: 300px;         /* ✅ 加一個固定最小高度 */
+  padding: 1rem;             /* 內距留一點點呼吸空間 */
   text-align: center;
+  background: white;         /* 背景白色 */
+  border-radius: 8px;        /* 稍微圓角 */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* 小小陰影 */
 }
+
 
 .card-img-fit {
   width: 80%; /* 圖片不要撐滿太醜 */
