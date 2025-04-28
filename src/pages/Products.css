@@ -21,11 +21,3 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* 小小陰影 */
 }
 
-
-.card-img-fit {
-  width: 80%; /* 圖片不要撐滿太醜 */
-  max-height: 160px;
-  object-fit: contain;
-  object-position: center;
-  background-color: #fff;
-}
