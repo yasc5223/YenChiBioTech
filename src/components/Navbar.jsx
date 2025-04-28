@@ -229,7 +229,7 @@ function Navbar() {
         <div className="container">
           <div className="container d-flex justify-content-between align-items-center">
             <Link className="navbar-brand brand-link" to="/">
-              <img src={baseUrl + "/api/image/logo.png"} alt="" className="nvabar-icon-image" />
+              <img src={baseUrl + "/api/GetImage/logo.png"} alt="" className="nvabar-icon-image" />
             </Link>
             <div className="d-flex align-items-center ms-auto gap-3">
               <ul className="nav py-2">

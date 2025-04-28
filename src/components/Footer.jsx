@@ -42,7 +42,7 @@ Taiwan (R.O.C.)
               <a href="https://line.me" className="footer-icon" target="_blank" rel="noreferrer"><FaLine /></a>
               */}
           <div className="col-md-4 mb-3 d-flex flex-column justify-content-start align-items-center">
-            <img src={baseUrl + "/api/image/LineQRCode.png"} alt="" className="footer-icon-image" />
+            <img src={baseUrl + "/api/GetImage/LineQRCode.png"} alt="" className="footer-icon-image" />
             <p className="mt-2 mb-0 small text-center">
               歡迎加入官方LINE詢問更多產品
             </p>
