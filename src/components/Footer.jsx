@@ -4,6 +4,7 @@ import "./Footer.css";
 import { FaFacebookF, FaLine, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => {
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
   return (
     <footer className="footer bg-dark text-light mt-5 pt-4 pb-3">
       <div className="container">
@@ -41,7 +42,7 @@ Taiwan (R.O.C.)
               <a href="https://line.me" className="footer-icon" target="_blank" rel="noreferrer"><FaLine /></a>
               */}
           <div className="col-md-4 mb-3 d-flex flex-column justify-content-start align-items-center">
-            <img src="LineQRCode.png" alt="" className="footer-icon-image" />
+            <img src={baseUrl + "/api/image/LineQRCode.png"} alt="" className="footer-icon-image" />
             <p className="mt-2 mb-0 small text-center">
               歡迎加入官方LINE詢問更多產品
             </p>
