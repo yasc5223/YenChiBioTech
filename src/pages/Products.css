@@ -4,18 +4,23 @@
   gap: 1rem;
 }
 
-.card-img-fit {
-  width: 100%;
-  height: 160px; /* 高度自訂，可依需求微調 */
-  object-fit: contain;
-  object-position: center;
-  background-color: #fff; /* 保持白底避免空隙突兀 */
-}
-
 .card-item {
   width: 100%;
 }
 
 .card-fixed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* 水平置中 */
+  justify-content: center; /* 垂直置中 */
   height: 100%;
+  text-align: center;
+}
+
+.card-img-fit {
+  width: 80%; /* 圖片不要撐滿太醜 */
+  max-height: 160px;
+  object-fit: contain;
+  object-position: center;
+  background-color: #fff;
 }
