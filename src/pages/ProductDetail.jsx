@@ -20,6 +20,10 @@ const ProductDetail = () => {
   const [fade, setFade] = useState(false);
   const [productList, setProductList] = useState([]); //
 
+  // ✨ 加這段，scroll to top
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [cat, sub, model]);
   useEffect(() => {
     fetch(`${baseUrl}/api/production`)
       .then((res) => res.json())
