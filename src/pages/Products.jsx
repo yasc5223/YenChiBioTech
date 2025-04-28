@@ -54,6 +54,7 @@ const Products = () => {
   }, [location.pathname]);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     if (level1 && level2 && !level3) {
       const models = Object.entries(productData[level1]?.[level2] || {}).filter(
         ([key]) => key !== "Image" && key !== "Icon"
