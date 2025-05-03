@@ -69,6 +69,11 @@ function About() {
       alt: "武藤化學",
       link: "https://www.mutokagaku.com/",
     },
+    {
+      src: "/About/brands/Polysciences.svg",
+      alt: "Polysciences",
+      link: "https://www.polysciences.com/default/",
+    },
   ];
   return (
     <div className="about-container">
