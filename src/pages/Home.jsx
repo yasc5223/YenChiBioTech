@@ -4,7 +4,7 @@ import './Home.css'; // 確保有引入 CSS
 
 function Home() {
   const newsList = [
-    { id: 1, title: "網站全新上線", date: "2025-04-28" },
+    { id: 1, title: "歡慶開幕!!!全台前五台組織旋轉切片機(R2260)優惠價只要20萬，快把握機會，快來聯繫我們了解詳情!", date: "2025-05-01" },
   ];
 
   return (
