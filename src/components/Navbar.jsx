@@ -237,6 +237,7 @@ function Navbar() {
           src={baseUrl + "/images/logo.png"}
           alt="Logo"
           className="nvabar-icon-image"
+          onClick={() => setMenuOpen(false)}
         />
       </Link>
       <button
