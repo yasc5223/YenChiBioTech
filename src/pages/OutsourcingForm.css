@@ -51,3 +51,22 @@ textarea.form-control {
     padding: 1.5rem;
   }
 }
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 2px solid black !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  font-size: 15px;
+  padding: 8px;
+  white-space: nowrap;
+}
+
+.table thead th {
+  background-color: #8B0000;
+  color: white;
+}

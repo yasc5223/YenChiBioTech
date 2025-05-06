@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import "./OutsourcingForm.css";
+import remarkGfm from "remark-gfm";
+import ReactMarkdown from "react-markdown";
 
 const OutsourcingForm = () => {
   const [form, setForm] = useState({
@@ -20,13 +22,17 @@ const OutsourcingForm = () => {
   const reCAPTCHAKey = import.meta.env.VITE_RECAPTCHA_KEY;
 
   const servicesList = [
-    "製作蠟塊",
-    "切空白切片",
-    "染 HE",
+    "石蠟包埋",
+    "石蠟空白切片",
+    "H&E",
+    "IHC",
+    "IF螢光 (雙染)",
     "特殊染色",
-    "玻片掃描",
-    "IHC染色 (自備抗體，會與您溝通稀釋倍數)",
-    "IF螢光染色(紅綠藍)"
+    "可見光 (400X)",
+    "螢光 (400X) DAPI+單波長",
+    "螢光 (400X) DAPI+雙波長",
+    "脫鈣前處理",
+    "動物病理判讀",
   ];
 
   useEffect(() => {
@@ -97,17 +103,127 @@ const OutsourcingForm = () => {
       setSubmitting(false);
     }
   };
+  const serviceTable = [
+    {
+      type: "包埋",
+      rowspan: 1,
+      items: [{ item: "石蠟包埋", price: "110" }],
+    },
+    {
+      type: "切片",
+      rowspan: 1,
+      items: [{ item: "石蠟空白切片", price: "50" }],
+    },
+    {
+      type: "染色",
+      rowspan: 4,
+      note: "註: 不含切片，若需切片一片加 50 元，\n一級抗體需自行準備",
+      items: [
+        { item: "H&E", price: "50" },
+        { item: "IHC", price: "400" },
+        { item: "IF 螢光（雙染）", price: "900" },
+        { item: "特殊染色", price: "300" },
+      ],
+    },
+    {
+      type: "掃片", // ← ✅ 修正這一筆
+      rowspan: 3,
+      items: [
+        { item: "可見光 (400X)", price: "400" },
+        { item: "螢光 (400X) DAPI + 單波長", price: "1400" },
+        { item: "螢光 (400X) DAPI + 雙波長", price: "1900" },
+      ],
+    },
+    {
+      type: "其他",
+      rowspan: 2,
+      items: [
+        { item: "脫鈣前處理", price: "90" },
+        { item: "動物病理判讀", price: "依需求報價" },
+      ],
+    },
+  ];
 
   return (
     <div className="outsourcing-form-container">
-      <div className="paper-style-form p-4 shadow" style={{ maxWidth: "800px", width: "100%", wordWrap: "break-word", overflowWrap: "break-word" }}>
+      <title>病理組織代工需求單</title>
+      <meta
+        name="description"
+        content="提交您組織樣本的委託需求，我們提供切片、染色、掃描等病理服務。"
+      />
+      <div
+        className="paper-style-form p-4 shadow"
+        style={{
+          maxWidth: "800px",
+          width: "100%",
+          wordWrap: "break-word",
+          overflowWrap: "break-word",
+        }}
+      >
         <h3 className="mb-4 text-primary text-center">病理組織代工需求單</h3>
-        
+
         <h4 className="text-muted mb-4 text-center">
           <strong>
-          感謝您選擇研質生技為您服務，為了維持品質，檢體請以10倍體積的福馬林保存呦～
+          為了維護品質，若要包埋檢體請以0%中性緩衝福馬林固定，建議的福馬林用量為組織體積的至少10倍以上浸泡，並將瓶口用Paraffin封緊，避免外漏呦~
           </strong>
         </h4>
+        <div className="table-responsive">
+          <table className="table table-bordered text-center align-middle">
+          <colgroup>
+    <col style={{ width: "15%" }} /> {/* 類型 */}
+    <col style={{ width: "55%" }} /> {/* 項目 */}
+    <col style={{ width: "30%" }} /> {/* 單個收費 */}
+  </colgroup>
+            <thead className="table-danger text-white fw-bold">
+              <tr>
+                <th>類型</th>
+                <th>項目</th>
+                <th>單個收費</th>
+              </tr>
+            </thead>
+            <tbody>
+              {serviceTable.map((group, groupIdx) =>
+                group.items.map((row, rowIdx) => (
+                  <tr key={`${groupIdx}-${rowIdx}`}>
+                    {rowIdx === 0 && (
+                      <td rowSpan={group.rowspan}>
+                        <div>
+                          {group.type}{group.note && (
+  <div
+    className="note"
+    dangerouslySetInnerHTML={{
+      __html: group.note.replace(/\n/g, "<br />")
+    }}
+  />
+)}
+
+                        </div>
+                      </td>
+                    )}
+                    <td>{row.item}</td>
+                    <td>{row.price}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+        <div className="table-note mt-3 text-start">
+  <p>
+    <strong className="text-primary">特殊染色：</strong>
+    <span className="text-primary">PAS、Trichrome，其他特殊染色價格另議</span>
+  </p>
+  <p>
+    <strong className="text-danger">優惠組合價：</strong>
+    <span className="text-danger">包埋 + 切片 + H&E（一組）NT$ 200 元</span>
+  </p>
+  <p className="note-muted mt-2">
+    ※以上為一般檢體適用，若有 Tissue Microarray (TMA) 製作或是其他類型服務價格另議，<br />
+    需其他服務也可以諮詢我們喔～
+  </p>
+</div>
+
+
         <form onSubmit={handleSubmit}>
           {[
             { name: "organization", label: "單位名稱 *" },
@@ -174,9 +290,7 @@ const OutsourcingForm = () => {
                 onChange={(token) => setCaptchaToken(token)}
               />
               {errors.recaptcha && (
-                <div className="text-danger small mt-1">
-                  {errors.recaptcha}
-                </div>
+                <div className="text-danger small mt-1">{errors.recaptcha}</div>
               )}
             </div>
 
