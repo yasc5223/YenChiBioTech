@@ -141,12 +141,42 @@
   color: black !important;
 }
 .badge-smaller {
-  font-size: 1.3rem; /* 小字 */
   padding: 3px 6px;   /* 小內距 */
   line-height: 1.3;
   border: 2px solid white; /* ✨ 加白邊 */
 }
 .search-dropdown-item {
   padding: 10px 16px; /* padding 再大一點點，手指點更舒服 */
-  font-size: 1rem;
+}
+.nav-link {
+  position: relative;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 0.5rem 1rem;
+  color: #333;
+  transition: all 0.25s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  bottom: 0;
+  width: 80%;
+  height: 2px;
+  background-color: #0077cc; /* 藍色底線 */
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  font-weight: 600;
+  color: #0055aa;
+  transform: scale(1.05);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
 }
