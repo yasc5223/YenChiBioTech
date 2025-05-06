@@ -1,5 +1,5 @@
 /* 主要外層，拿掉白底，讓背景可以透出 */
-.outsourcing-form-container {
+.outsourcingForm-outsourcing-form-container {
   display: flex;
   justify-content: center;
   padding: 3rem 1rem;
@@ -7,7 +7,7 @@
 }
 
 /* 表單卡片樣式 */
-.paper-style-form {
+.outsourcingForm-paper-style-form {
   position: relative;
   background: rgba(255, 255, 255, 0.95); /* 半透明白色，卡片質感 */
   border-radius: 12px;
@@ -51,13 +51,13 @@ textarea.form-control {
     padding: 1.5rem;
   }
 }
-.table {
+.outsourcingForm-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.table th,
-.table td {
+.outsourcingForm-table th,
+.outsourcingForm-table td {
   border: 2px solid black !important;
   text-align: center !important;
   vertical-align: middle !important;
@@ -66,7 +66,7 @@ textarea.form-control {
   white-space: nowrap;
 }
 
-.table thead th {
+.outsourcingForm-table thead th {
   background-color: #8B0000;
   color: white;
 }

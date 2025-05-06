@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import "./OutsourcingForm.css";
-import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 
 const OutsourcingForm = () => {
@@ -145,14 +144,14 @@ const OutsourcingForm = () => {
   ];
 
   return (
-    <div className="outsourcing-form-container">
+    <div className="outsourcingForm-outsourcing-form-container">
       <title>病理組織代工需求單</title>
       <meta
         name="description"
         content="提交您組織樣本的委託需求，我們提供切片、染色、掃描等病理服務。"
       />
       <div
-        className="paper-style-form p-4 shadow"
+        className="outsourcingForm-paper-style-form p-4 shadow"
         style={{
           maxWidth: "800px",
           width: "100%",
@@ -164,16 +163,16 @@ const OutsourcingForm = () => {
 
         <h4 className="text-muted mb-4 text-center">
           <strong>
-          為了維護品質，若要包埋檢體請以0%中性緩衝福馬林固定，建議的福馬林用量為組織體積的至少10倍以上浸泡，並將瓶口用Paraffin封緊，避免外漏呦~
+            為了維護品質，若要包埋檢體請以0%中性緩衝福馬林固定，建議的福馬林用量為組織體積的至少10倍以上浸泡，並將瓶口用Paraffin封緊，避免外漏呦~
           </strong>
         </h4>
         <div className="table-responsive">
-          <table className="table table-bordered text-center align-middle">
-          <colgroup>
-    <col style={{ width: "15%" }} /> {/* 類型 */}
-    <col style={{ width: "55%" }} /> {/* 項目 */}
-    <col style={{ width: "30%" }} /> {/* 單個收費 */}
-  </colgroup>
+          <table className="outsourcingForm-table table-bordered text-center align-middle">
+            <colgroup>
+              <col style={{ width: "15%" }} /> {/* 類型 */}
+              <col style={{ width: "55%" }} /> {/* 項目 */}
+              <col style={{ width: "30%" }} /> {/* 單個收費 */}
+            </colgroup>
             <thead className="table-danger text-white fw-bold">
               <tr>
                 <th>類型</th>
@@ -188,15 +187,15 @@ const OutsourcingForm = () => {
                     {rowIdx === 0 && (
                       <td rowSpan={group.rowspan}>
                         <div>
-                          {group.type}{group.note && (
-  <div
-    className="note"
-    dangerouslySetInnerHTML={{
-      __html: group.note.replace(/\n/g, "<br />")
-    }}
-  />
-)}
-
+                          {group.type}
+                          {group.note && (
+                            <div
+                              className="note"
+                              dangerouslySetInnerHTML={{
+                                __html: group.note.replace(/\n/g, "<br />"),
+                              }}
+                            />
+                          )}
                         </div>
                       </td>
                     )}
@@ -209,20 +208,25 @@ const OutsourcingForm = () => {
           </table>
         </div>
         <div className="table-note mt-3 text-start">
-  <p>
-    <strong className="text-primary">特殊染色：</strong>
-    <span className="text-primary">PAS、Trichrome，其他特殊染色價格另議</span>
-  </p>
-  <p>
-    <strong className="text-danger">優惠組合價：</strong>
-    <span className="text-danger">包埋 + 切片 + H&E（一組）NT$ 200 元</span>
-  </p>
-  <p className="note-muted mt-2">
-    ※以上為一般檢體適用，若有 Tissue Microarray (TMA) 製作或是其他類型服務價格另議，<br />
-    需其他服務也可以諮詢我們喔～
-  </p>
-</div>
-
+          <p>
+            <strong className="text-primary">特殊染色：</strong>
+            <span className="text-primary">
+              PAS、Trichrome，其他特殊染色價格另議
+            </span>
+          </p>
+          <p>
+            <strong className="text-danger">優惠組合價：</strong>
+            <span className="text-danger">
+              包埋 + 切片 + H&E（一組）NT$ 200 元
+            </span>
+          </p>
+          <p className="note-muted mt-2">
+            ※以上為一般檢體適用，若有 Tissue Microarray (TMA)
+            製作或是其他類型服務價格另議，
+            <br />
+            需其他服務也可以諮詢我們喔～
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit}>
           {[
