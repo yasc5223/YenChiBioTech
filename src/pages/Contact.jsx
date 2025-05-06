@@ -94,7 +94,7 @@ const Contact = () => {
               研質生技有限公司
             </h4>
             <h5>Yenchi Biotech LTD</h5>
-            <p className="small mb-1">電話: </p>
+            <p className="small mb-1">電話: 04-36032292</p>
             <p className="small mb-1">傳真: 04-24637008</p>
             <p className="small mb-1">Email: info@yenchibio.com.tw</p>
             <p className="small mb-1">地址: 台中市西屯區科園路19號3F301室</p>
