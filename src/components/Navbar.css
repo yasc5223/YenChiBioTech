@@ -180,3 +180,38 @@
 .nav-link:hover::after {
   transform: scaleX(1);
 }
+.mobile-nav-footer {
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .mobile-nav-footer input {
+    font-size: 16px;
+  }
+
+  .search-dropdown {
+    position: relative;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+  }
+}
+.mobile-nav-footer .search-input {
+  max-width: 180px;
+  font-size: 16px;
+}
+
+.mobile-nav-footer .text-dark {
+  margin-left: 12px;
+}
+.mobile-nav-footer{
+  
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  box-shadow: none;
+  font-size: 16px;
+}
