@@ -93,7 +93,7 @@ function About() {
           <img src="/About/icon/2.png" alt="" className="paragraph-icon" />{" "}
           服務宗旨
         </div>
-        <p className="fade-in-text" style={{ animationDelay: "2s" }}>
+        <p className="fade-in-text" style={{ animationDelay: "1s" }}>
           我們了解在動物實驗與學術研究中，病理診斷與組織分析扮演著關鍵角色。無論是學術研究單位、醫學中心或生技產業，我們致力於提供高品質、精確且迅速的組織病理分析服務，協助客戶提升研究品質與效率。研質秉持著科學嚴謹、品質優先、服務至上的理念，我們期望成為您在研究路上的堅強後盾。
         </p>
         <div className="paragraph-title">
