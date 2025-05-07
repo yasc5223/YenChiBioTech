@@ -59,3 +59,6 @@
   min-height: 50px; /* 小卡片高度 */
   padding: 1rem;
 }
+.card-img-top{
+  background-color: #ffffff;
+}
