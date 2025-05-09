@@ -136,8 +136,8 @@
 .dropdown-link-item {
   display: flex;
   align-items: center;
-  padding: 0.65rem 1.5rem;
-  font-size: 26px; /* ✅ 保留大字 */
+  padding: 0.65rem 1rem;
+  font-size: 20px; /* ✅ 保留大字 */
   font-weight: 500;
   color: #333;
   background-color: transparent;
@@ -178,4 +178,107 @@
   left: 100%;
   margin-left: 0;
   border-radius: 8px;
+}
+@media (max-width: 767px) {
+  .dropdown-submenu-menu {
+    margin: 0.25rem 0 0 0; /* 子選單直接在主項下方，不偏移 */
+    padding-left: 1rem;
+    border-left: 2px solid #eee;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+  }
+
+  .dropdown-menu.show {
+    padding: 0;
+    margin-top: 6px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .dropdown-item,
+  .dropdown-link-item {
+    font-size: 20px;
+    padding: 10px 14px;
+  }
+
+  .icon-image {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+  }
+
+  .arrow-icon {
+    font-size: 0.8rem;
+  }
+
+  .dropdown-wrapper .nav-link {
+    font-size: 1rem;
+    padding: 8px 0;
+  }
+
+  .dropdown-submenu {
+    position: static !important; /* ❗ 讓子選單不使用絕對定位 */
+  }
+
+  .dropdown-submenu > .dropdown-menu {
+    position: static !important;
+    top: auto;
+    left: auto;
+    box-shadow: none;
+    padding-left: 1rem;
+  }
+  .dropdown-menu {
+    position: static !important;
+    display: block !important;
+    width: 100%;
+    margin-top: 0.5rem;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    padding: 0.25rem 0;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-menu.show {
+    animation: dropdownFadeIn 0.3s ease-out;
+  }
+
+  @keyframes dropdownFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  /* 手機子選單展開時動畫與樣式增強 */
+.dropdown-submenu-menu {
+  animation: submenuFadeIn 0.25s ease-out forwards;
+  opacity: 0;
+  transform: translateY(-5px);
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #ddd;
+  min-width: 200px;
+  padding: 0.5rem 0;
+}
+
+/* 動畫關鍵影格 */
+@keyframes submenuFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+}
+
+.dropdown-submenu-menu {
+  padding-left: 1rem;
+  background-color: #f9f9f9;
+  border-left: 2px solid #ccc;
+  margin-top: 4px;
+  border-radius: 4px;
 }
