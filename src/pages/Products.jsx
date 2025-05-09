@@ -260,7 +260,7 @@ const Products = () => {
   };
 
   return (
-    <div className="container mt-5 pt-4">
+    <div className="container">
       <h2 className="mb-3">產品資訊</h2>
       <Breadcrumbs pathParts={pathParts} />
       {loading ? (
