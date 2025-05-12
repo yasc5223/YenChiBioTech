@@ -163,7 +163,7 @@ const OutsourcingForm = () => {
 
         <h4 className="text-muted mb-4 text-center">
           <strong>
-            為了維護品質，若要包埋檢體請以0%中性緩衝福馬林固定，建議的福馬林用量為組織體積的至少10倍以上浸泡，並將瓶口用Paraffin封緊，避免外漏呦~
+            為了維護品質，若要包埋檢體請以10%中性緩衝福馬林固定，建議的福馬林用量為組織體積的至少10倍以上浸泡，並將瓶口用Paraffin封緊，避免外漏呦~
           </strong>
         </h4>
         <div className="table-responsive">
