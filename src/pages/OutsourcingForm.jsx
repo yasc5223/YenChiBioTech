@@ -2,8 +2,13 @@ import React, { useState, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import "./OutsourcingForm.css";
 import ReactMarkdown from "react-markdown";
+import { useParams } from "react-router-dom";
 
 const OutsourcingForm = () => {
+  const { cat, sub, model } = useParams();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [cat, sub, model]);
   const [form, setForm] = useState({
     organization: "",
     contactPerson: "",
