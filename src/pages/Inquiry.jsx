@@ -4,6 +4,14 @@ import "./Inquiry.css";
 import ContactForm from "../components/ContactForm";
 
 const Inquiry = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+useEffect(() => {
+  const handleResize = () => setIsMobile(window.innerWidth <= 768);
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
   const [cart, setCart] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [submitting, setSubmitting] = useState(false); // 🆕
@@ -103,59 +111,90 @@ const Inquiry = () => {
   return (
     <div className="container mt-5 pt-4">
       <h2 className="mb-4">📋 詢價清單</h2>
-      <table className="table table-bordered table-hover inquiry-table">
-        <thead className="table-light">
-          <tr>
-            <th style={{ width: "110px" }}>圖片</th>
-            <th style={{ width: "200px" }}>產品名稱</th>
-            <th style={{ width: "160px" }}>分類</th>
-            <th className="internal-code">說明</th>
-            <th style={{ width: "80px" }}>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cart.map((item, idx) => (
-            <tr key={idx}>
-              <td className="text-center align-middle">
-                <img
-                  src={item.image || "/spinner.svg"}
-                  alt={item.model}
-                  className="rounded me-3"
-                  style={{ width: "60px", height: "60px", objectFit: "cover" }}
-                />
-              </td>
-              <td className="align-middle">
-                <Link
-                  to={`/products/${encodeURIComponent(item.category)}/${encodeURIComponent(item.subCategory)}/${encodeURIComponent(item.model)}`}
-                >
-                  {item.model}
-                </Link>
-                {item.info?.ExternalTitle && (
-                  <div className="text-muted small">
-                    {item.info.ExternalTitle}
-                  </div>
-                )}
-              </td>
-              <td className="align-middle">
-                {item.category} / {item.subCategory}
-              </td>
-              <td className="align-middle internal-code">
-                {item.info?.InternalTitle?.split("\n").map((line, i) => (
-                  <div key={i}>{line}</div>
-                ))}
-              </td>
-              <td className="text-center align-middle">
-                <button
-                  className="btn btn-sm btn-outline-danger"
-                  onClick={() => handleRemove(item.model)}
-                >
-                  移除
-                </button>
-              </td>
-            </tr>
+{!isMobile ? (
+  <table className="table table-bordered table-hover inquiry-table">
+    <thead className="table-light">
+      <tr>
+        <th style={{ width: "110px" }}>圖片</th>
+        <th style={{ width: "200px" }}>產品名稱</th>
+        <th style={{ width: "160px" }}>分類</th>
+        <th className="internal-code">說明</th>
+        <th style={{ width: "80px" }}>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {cart.map((item, idx) => (
+        <tr key={idx}>
+          <td className="text-center align-middle">
+            <img
+              src={item.image || "/spinner.svg"}
+              alt={item.model}
+              className="rounded me-3"
+              style={{ width: "60px", height: "60px", objectFit: "cover" }}
+            />
+          </td>
+          <td className="align-middle">
+            <Link
+              to={`/products/${encodeURIComponent(item.category)}/${encodeURIComponent(item.subCategory)}/${encodeURIComponent(item.model)}`}
+            >
+              {item.model}
+            </Link>
+            {item.info?.ExternalTitle && (
+              <div className="text-muted small">
+                {item.info.ExternalTitle}
+              </div>
+            )}
+          </td>
+          <td className="align-middle">
+            {item.category} / {item.subCategory}
+          </td>
+          <td className="align-middle internal-code">
+            {item.info?.InternalTitle?.split("\n").map((line, i) => (
+              <div key={i}>{line}</div>
+            ))}
+          </td>
+          <td className="text-center align-middle">
+            <button
+              className="btn btn-sm btn-outline-danger"
+              onClick={() => handleRemove(item.model)}
+            >
+              移除
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+) : (
+  <div className="mobile-inquiry-list">
+    {cart.map((item, idx) => (
+      <div className="mobile-inquiry-card" key={idx}>
+        <button
+          type="button"
+          className="remove-x-btn"
+          onClick={() => handleRemove(item.model)}
+        >
+          ×
+        </button>
+        <div><strong>產品名稱：</strong> {item.model}</div>
+        <div><strong>分類：</strong> {item.category} / {item.subCategory}</div>
+        <div><strong>說明：</strong>
+          {item.info?.InternalTitle?.split("\n").map((line, i) => (
+            <div key={i}>{line}</div>
           ))}
-        </tbody>
-      </table>
+        </div>
+        <div><strong>圖片：</strong>
+          <img
+            src={item.image || "/spinner.svg"}
+            alt={item.model}
+            style={{ width: "60px", height: "60px", objectFit: "cover", marginTop: "6px" }}
+          />
+        </div>
+      </div>
+    ))}
+  </div>
+)}
+
 
       <div className="d-flex justify-content-between mt-4">
         <button className="btn btn-danger" onClick={handleClear}>

@@ -55,3 +55,28 @@ td.internal-code {
   font-size: 1.4rem;
   cursor: pointer;
 }
+.mobile-inquiry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mobile-inquiry-card {
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+
+.remove-x-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  color: #dc3545;
+  cursor: pointer;
+}
