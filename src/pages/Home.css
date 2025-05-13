@@ -1,9 +1,9 @@
 
-.carousel-item {
-  min-height: 300px; /* 至少 300px */
-  background-color: #f8f9fa;
+@media (min-width: 769px) {
+  .carousel-item {
+    min-height: 300px;
+  }
 }
-
 .carousel-item img {
   width: 100%;
   height: auto; /* 高度自適應 */

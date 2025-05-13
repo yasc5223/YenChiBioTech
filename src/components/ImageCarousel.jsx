@@ -23,7 +23,7 @@ const ImageCarousel = ({
       {title && <h3 className="text-center mb-3">{title}</h3>}
 
       {images.length > 0 ? (
-        <div className="carousel-container" style={{ height: '500px' }}>
+        <div className="carousel-container">
           <Carousel interval={interval}>
             {images.map((img, idx) => (
               <Carousel.Item key={idx}>
@@ -39,7 +39,7 @@ const ImageCarousel = ({
           </Carousel>
         </div>
       ) : (
-        <div className="text-center py-5" style={{ height: '500px' }}>
+        <div className="text-center py-5">
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">載入中...</span>
           </div>

@@ -62,3 +62,37 @@
 .card-img-top{
   background-color: #ffffff;
 }
+@media (max-width: 768px) {
+  
+  .card-responsive-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;       /* ✅ 水平置中整體 */
+    width: 100%;                   /* ✅ 撐滿容器 */
+    padding: 0;                    /* ✅ 移除內距避免偏移 */
+    gap: 1.2rem;
+  }
+
+  .card-item {
+    width: 90%;
+    max-width: 340px;
+  }
+  .card-fixed {
+    padding: 1rem;
+  }
+
+  .card-img-wrapper {
+    height: auto;
+    max-height: 200px;
+  }
+
+  .card-img-fit {
+    max-height: 200px;
+    object-fit: contain;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+}
