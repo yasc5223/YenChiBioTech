@@ -15,6 +15,7 @@ import Footer from './components/Footer';
 import OutsourcingForm from './pages/OutsourcingForm';
 import BloodBiochemicalAnalysisForm from './pages/BloodBiochemicalAnalysisForm';
 import FishAndShrimpDiseasesForm from './pages/FishAndShrimpDiseasesForm';
+import ScrollToTop from "./components/ScrollToTop";
 import './App.css'
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <div className="container mt-5 pt-3">
           {
             <TransitionGroup>
+              <ScrollToTop />
               <CSSTransition
                 key={location.pathname}
                 classNames="fade"
