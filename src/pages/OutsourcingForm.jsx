@@ -24,6 +24,13 @@ const OutsourcingForm = () => {
   const [captchaToken, setCaptchaToken] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const reCAPTCHAKey = import.meta.env.VITE_RECAPTCHA_KEY;
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+useEffect(() => {
+  const handleResize = () => setIsMobile(window.innerWidth <= 768);
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
 
   const servicesList = [
     "石蠟包埋",
@@ -171,47 +178,71 @@ const OutsourcingForm = () => {
             為了維護品質，若要包埋檢體請以10%中性緩衝福馬林固定，建議的福馬林用量為組織體積的至少10倍以上浸泡，並將瓶口用Paraffin封緊，避免外漏呦~
           </strong>
         </h4>
-        <div className="table-responsive">
-          <table className="outsourcingForm-table table-bordered text-center align-middle">
-            <colgroup>
-              <col style={{ width: "15%" }} /> {/* 類型 */}
-              <col style={{ width: "55%" }} /> {/* 項目 */}
-              <col style={{ width: "30%" }} /> {/* 單個收費 */}
-            </colgroup>
-            <thead className="table-danger text-white fw-bold">
-              <tr>
-                <th>類型</th>
-                <th>項目</th>
-                <th>單個收費</th>
-              </tr>
-            </thead>
-            <tbody>
-              {serviceTable.map((group, groupIdx) =>
-                group.items.map((row, rowIdx) => (
-                  <tr key={`${groupIdx}-${rowIdx}`}>
-                    {rowIdx === 0 && (
-                      <td rowSpan={group.rowspan}>
-                        <div>
-                          {group.type}
-                          {group.note && (
-                            <div
-                              className="note"
-                              dangerouslySetInnerHTML={{
-                                __html: group.note.replace(/\n/g, "<br />"),
-                              }}
-                            />
-                          )}
-                        </div>
-                      </td>
+        {isMobile ? (
+  <div className="mobile-table">
+    {serviceTable.map((group, idx) => (
+      <div className="mobile-card mb-3 p-3 border rounded" key={idx}>
+        <h5 className="fw-bold text-primary mb-2">{group.type}</h5>
+        <ul className="list-unstyled mb-2">
+          {group.items.map((item, i) => (
+            <li key={i} className="d-flex justify-content-between border-bottom py-1">
+              <span>{item.item}</span>
+              <span>{item.price}</span>
+            </li>
+          ))}
+        </ul>
+        {group.note && (
+          <div className="small text-muted" style={{ whiteSpace: 'pre-line' }}>
+            {group.note}
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+) : (
+  <div className="table-responsive">
+    <table className="outsourcingForm-table table-bordered text-center align-middle">
+      <colgroup>
+        <col style={{ width: "15%" }} />
+        <col style={{ width: "55%" }} />
+        <col style={{ width: "30%" }} />
+      </colgroup>
+      <thead className="table-danger text-white fw-bold">
+        <tr>
+          <th>類型</th>
+          <th>項目</th>
+          <th>單個收費</th>
+        </tr>
+      </thead>
+      <tbody>
+        {serviceTable.map((group, groupIdx) =>
+          group.items.map((row, rowIdx) => (
+            <tr key={`${groupIdx}-${rowIdx}`}>
+              {rowIdx === 0 && (
+                <td rowSpan={group.rowspan}>
+                  <div>
+                    {group.type}
+                    {group.note && (
+                      <div
+                        className="note"
+                        dangerouslySetInnerHTML={{
+                          __html: group.note.replace(/\n/g, "<br />"),
+                        }}
+                      />
                     )}
-                    <td>{row.item}</td>
-                    <td>{row.price}</td>
-                  </tr>
-                ))
+                  </div>
+                </td>
               )}
-            </tbody>
-          </table>
-        </div>
+              <td>{row.item}</td>
+              <td>{row.price}</td>
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+  </div>
+)}
+
         <div className="table-note mt-3 text-start">
           <p>
             <strong className="text-primary">特殊染色：</strong>
