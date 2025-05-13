@@ -73,7 +73,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="container mt-5 pt-4">
+    <div className="container">
       <div className="row g-4">
         {/* 表單區塊 */}
         <div className="col-lg-7">

@@ -98,7 +98,7 @@ useEffect(() => {
 
   if (cart.length === 0) {
     return (
-      <div className="container mt-5 text-center">
+      <div className="container text-center">
         <h4>🛒 詢價車是空的</h4>
         <p>您尚未加入任何產品</p>
         <Link className="btn btn-outline-primary mt-3" to="/products">
