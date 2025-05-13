@@ -109,7 +109,7 @@ useEffect(() => {
   }
 
   return (
-    <div className="container mt-5 pt-4">
+    <div className="container">
       <h2 className="mb-4">📋 詢價清單</h2>
 {!isMobile ? (
   <table className="table table-bordered table-hover inquiry-table">
