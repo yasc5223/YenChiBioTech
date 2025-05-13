@@ -87,4 +87,24 @@
   .product-info p {
     margin-bottom: 0.5rem;
   }
-  
+  @media (max-width: 768px) {
+  .main-preview-image {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100%;
+  }
+
+  .thumbnail-img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .product-info {
+    padding-left: 0;
+  }
+
+  .product-description-markdown img {
+    max-width: 100%;
+    height: auto;
+  }
+}
