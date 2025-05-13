@@ -1,0 +1,54 @@
+.showcase-section h4 {
+  margin-bottom: 0.5rem;
+}
+
+.image-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 1rem;
+  justify-content: flex-start;
+}
+
+.image-thumb {
+  width: 180px;
+  height: 130px;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #f4f4f4;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* ✅ 圖片完整填滿、可變形 */
+.image-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* 撐滿卡片容器，允許變形 */
+  display: block;
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+}
+
+/* ✅ Hover 放大視覺感 */
+.image-thumb img:hover {
+  transform: scale(1.03);
+}
+
+/* ✅ 手機版調整：兩欄橫排，自動換行 */
+@media (max-width: 768px) {
+  .image-row {
+    justify-content: center;
+  }
+
+  .image-thumb {
+    width: 45%;
+    height: auto;
+    aspect-ratio: 4 / 3; /* 強制比例保持畫面穩定 */
+  }
+
+  .image-thumb img {
+    object-fit: fill; /* 手機仍撐滿容器 */
+    height: 100%;
+  }
+}

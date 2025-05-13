@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Inquiry.css";
 import ContactForm from "../components/ContactForm";
+import { AiFillDelete } from "react-icons/ai";
 
 const Inquiry = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -119,7 +120,7 @@ useEffect(() => {
         <th style={{ width: "200px" }}>產品名稱</th>
         <th style={{ width: "160px" }}>分類</th>
         <th className="internal-code">說明</th>
-        <th style={{ width: "80px" }}>操作</th>
+        <th style={{ width: "80px" }}></th>
       </tr>
     </thead>
     <tbody>
@@ -158,7 +159,7 @@ useEffect(() => {
               className="btn btn-sm btn-outline-danger"
               onClick={() => handleRemove(item.model)}
             >
-              移除
+              <AiFillDelete />
             </button>
           </td>
         </tr>

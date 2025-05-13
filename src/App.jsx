@@ -1,22 +1,23 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import React, { useEffect, useState, useRef } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import About from './pages/About';
-import Services from './pages/Services';
-import Products from './pages/Products';
-import Contact from './pages/Contact';
-import './transition.css';
-import ProductDetail from './pages/ProductDetail';
-import Inquiry from './pages/Inquiry';
-import Footer from './components/Footer';
-import OutsourcingForm from './pages/OutsourcingForm';
-import BloodBiochemicalAnalysisForm from './pages/BloodBiochemicalAnalysisForm';
-import FishAndShrimpDiseasesForm from './pages/FishAndShrimpDiseasesForm';
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Services from "./pages/Services";
+import Products from "./pages/Products";
+import Contact from "./pages/Contact";
+import "./transition.css";
+import ProductDetail from "./pages/ProductDetail";
+import Inquiry from "./pages/Inquiry";
+import Footer from "./components/Footer";
+import OutsourcingForm from "./pages/OutsourcingForm";
+import BloodBiochemicalAnalysisForm from "./pages/BloodBiochemicalAnalysisForm";
+import FishAndShrimpDiseasesForm from "./pages/FishAndShrimpDiseasesForm";
 import ScrollToTop from "./components/ScrollToTop";
-import './App.css'
+import PathologyShowcase from "./pages/PathologyShowcase";
+import "./App.css";
 
 function App() {
   const location = useLocation();
@@ -53,11 +54,27 @@ function App() {
                     <Route path="/services" element={<Services />} />
                     <Route path="/products/*" element={<Products />} />
                     <Route path="/contact" element={<Contact />} />
-                    <Route path="/products/:cat/:sub/:model" element={<ProductDetail />} />
+                    <Route
+                      path="/products/:cat/:sub/:model"
+                      element={<ProductDetail />}
+                    />
                     <Route path="/inquiry" element={<Inquiry />} />
-                    <Route path="/services/HistopathologyOutsourcing" element={<OutsourcingForm />} />
-                    <Route path="/services/BloodBiochemicalAnalysis" element={<BloodBiochemicalAnalysisForm />} />
-                    <Route path="/services/FishAndShrimpDiseases" element={<FishAndShrimpDiseasesForm />} />
+                    <Route
+                      path="/services/HistopathologyOutsourcing"
+                      element={<OutsourcingForm />}
+                    />
+                    <Route
+                      path="/services/BloodBiochemicalAnalysis"
+                      element={<BloodBiochemicalAnalysisForm />}
+                    />
+                    <Route
+                      path="/services/FishAndShrimpDiseases"
+                      element={<FishAndShrimpDiseasesForm />}
+                    />
+                    <Route
+                      path="/outsourcing/showcase"
+                      element={<PathologyShowcase />}
+                    />
                   </Routes>
                 </div>
               </CSSTransition>
