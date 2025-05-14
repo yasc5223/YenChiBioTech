@@ -22,10 +22,10 @@ const sections = [
     ],
   },
   {
-    title: "特殊染色 (Special Stains)",
+    title: "特殊染色 (Special Stains)簡介",
     description:
       `
-特殊染色 是一系列針對特定組織成分或微生物所設計的染色技術，常用於補充H&E染色無法辨識的病理資訊。具有高度診斷價值，廣泛應用於臨床病理與研究。
+特殊染色是一系列針對特定組織成分或微生物所設計的染色技術，常用於補充H&E染色無法辨識的病理資訊。具有高度診斷價值，廣泛應用於臨床病理與研究。
 
 **本公司代工染色類型與用途：**
 
@@ -38,10 +38,10 @@ const sections = [
 
 **成果照片:**`,
     images: [
-      "/PathologyShowcase/SS1.png",
-      "/PathologyShowcase/SS2.png",
-      "/PathologyShowcase/SS3.jpg",
-      "/PathologyShowcase/SS4.png",
+      "/PathologyShowcase/SPECIAL1.png",
+      "/PathologyShowcase/SPECIAL2.png",
+      "/PathologyShowcase/SPECIAL3.png",
+      "/PathologyShowcase/SPECIAL4.png",
     ],
   },
   {
@@ -53,7 +53,7 @@ IHC染色 是利用抗體與抗原專一性結合的原理，來標定組織或�
 **成果照片:**
 `,
     images: [
-      "/PathologyShowcase/IHC1.jpg",
+      "/PathologyShowcase/IHC1.png",
       "/PathologyShowcase/IHC2.png",
       "/PathologyShowcase/IHC3.png",
       "/PathologyShowcase/IHC4.png",
@@ -67,10 +67,10 @@ IHC染色 是利用抗體與抗原專一性結合的原理，來標定組織或�
 **成果照片:**
 `,
     images: [
-      "/PathologyShowcase/IF1.jpg",
-      "/PathologyShowcase/IF2.png",
-      "/PathologyShowcase/IF3.png",
-      "/PathologyShowcase/IF4.jpg",
+      "/PathologyShowcase/if1.png",
+      "/PathologyShowcase/if2.png",
+      "/PathologyShowcase/if3.png",
+      "/PathologyShowcase/if4.png",
     ],
   },
   {
@@ -78,8 +78,8 @@ IHC染色 是利用抗體與抗原專一性結合的原理，來標定組織或�
     description:
       "**成果照片:**",
     images: [
-      "/PathologyShowcase/Panoramic1.png",
-      "/PathologyShowcase/Panoramic2.png",
+      "/PathologyShowcase/FULL1.png",
+      "/PathologyShowcase/FULL2.png",
     ],
   },
 ];
