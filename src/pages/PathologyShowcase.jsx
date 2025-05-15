@@ -15,10 +15,10 @@ const sections = [
       
 **成果照片:**`,
     images: [
-      "/PathologyShowcase/HE1.png",
-      "/PathologyShowcase/HE2.png",
-      "/PathologyShowcase/HE3.png",
-      "/PathologyShowcase/HE4.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/HE1.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/HE2.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/HE3.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/HE4.png",
     ],
   },
   {
@@ -38,10 +38,10 @@ const sections = [
 
 **成果照片:**`,
     images: [
-      "/PathologyShowcase/SPECIAL1.png",
-      "/PathologyShowcase/SPECIAL2.png",
-      "/PathologyShowcase/SPECIAL3.png",
-      "/PathologyShowcase/SPECIAL4.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/SPECIAL1.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/SPECIAL2.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/SPECIAL3.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/SPECIAL4.png",
     ],
   },
   {
@@ -53,10 +53,10 @@ IHC染色 是利用抗體與抗原專一性結合的原理，來標定組織或�
 **成果照片:**
 `,
     images: [
-      "/PathologyShowcase/IHC1.png",
-      "/PathologyShowcase/IHC2.png",
-      "/PathologyShowcase/IHC3.png",
-      "/PathologyShowcase/IHC4.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/IHC1.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/IHC2.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/IHC3.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/IHC4.png",
     ],
   },
   {
@@ -67,10 +67,10 @@ IHC染色 是利用抗體與抗原專一性結合的原理，來標定組織或�
 **成果照片:**
 `,
     images: [
-      "/PathologyShowcase/if1.png",
-      "/PathologyShowcase/if2.png",
-      "/PathologyShowcase/if3.png",
-      "/PathologyShowcase/if4.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/if1.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/if2.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/if3.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/if4.png",
     ],
   },
   {
@@ -78,8 +78,8 @@ IHC染色 是利用抗體與抗原專一性結合的原理，來標定組織或�
     description:
       "**成果照片:**",
     images: [
-      "/PathologyShowcase/FULL1.png",
-      "/PathologyShowcase/FULL2.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/FULL1.png",
+      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/FULL2.png",
     ],
   },
 ];
@@ -133,7 +133,7 @@ const PathologyShowcase = () => {
             {section.images.map((img, i) => (
               <div className="image-thumb" key={i}>
                 <Zoom>
-                <img src={baseUrl + "/images" + img} alt={`展示圖 ${i + 1}`} />
+                <img src={img.startsWith("http") ? img : baseUrl + "/images" + img} alt={`展示圖 ${i + 1}`} />
                 </Zoom>
               </div>
             ))}
