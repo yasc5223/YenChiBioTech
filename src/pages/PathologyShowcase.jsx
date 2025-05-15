@@ -15,10 +15,10 @@ const sections = [
       
 **成果照片:**`,
     images: [
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/HE1.png",
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/HE2.png",
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/HE3.png",
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/HE4.png",
+      { thumbnail: "/PathologyShowcase/thumbs/HE1.png", full: "/PathologyShowcase/HE1.png" },
+      { thumbnail: "/PathologyShowcase/thumbs/HE2.png", full: "/PathologyShowcase/HE2.png" },
+      { thumbnail: "/PathologyShowcase/thumbs/HE3.png", full: "/PathologyShowcase/HE3.png" },
+      { thumbnail: "/PathologyShowcase/thumbs/HE4.png", full: "/PathologyShowcase/HE4.png" },
     ],
   },
   {
@@ -38,10 +38,10 @@ const sections = [
 
 **成果照片:**`,
     images: [
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/SPECIAL1.png",
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/SPECIAL2.png",
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/SPECIAL3.png",
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/SPECIAL4.png",
+      { thumbnail: "/PathologyShowcase/thumbs/SPECIAL1.png", full: "/PathologyShowcase/SPECIAL1.png" },
+      { thumbnail: "/PathologyShowcase/thumbs/SPECIAL2.png", full: "/PathologyShowcase/SPECIAL2.png" },
+      { thumbnail: "/PathologyShowcase/thumbs/SPECIAL3.png", full: "/PathologyShowcase/SPECIAL3.png" },
+      { thumbnail: "/PathologyShowcase/thumbs/SPECIAL4.png", full: "/PathologyShowcase/SPECIAL4.png" },
     ],
   },
   {
@@ -53,10 +53,10 @@ IHC染色 是利用抗體與抗原專一性結合的原理，來標定組織或�
 **成果照片:**
 `,
     images: [
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/IHC1.png",
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/IHC2.png",
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/IHC3.png",
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/IHC4.png",
+      { thumbnail: "/PathologyShowcase/thumbs/IHC1.png", full: "/PathologyShowcase/IHC1.png" },
+      { thumbnail: "/PathologyShowcase/thumbs/IHC2.png", full: "/PathologyShowcase/IHC2.png" },
+      { thumbnail: "/PathologyShowcase/thumbs/IHC3.png", full: "/PathologyShowcase/IHC3.png" },
+      { thumbnail: "/PathologyShowcase/thumbs/IHC4.png", full: "/PathologyShowcase/IHC4.png" },
     ],
   },
   {
@@ -67,10 +67,10 @@ IHC染色 是利用抗體與抗原專一性結合的原理，來標定組織或�
 **成果照片:**
 `,
     images: [
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/if1.png",
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/if2.png",
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/if3.png",
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/if4.png",
+      { thumbnail: "/PathologyShowcase/thumbs/IF1.png", full: "/PathologyShowcase/IF1.png" },
+      { thumbnail: "/PathologyShowcase/thumbs/IF2.png", full: "/PathologyShowcase/IF2.png" },
+      { thumbnail: "/PathologyShowcase/thumbs/IF3.png", full: "/PathologyShowcase/IF3.png" },
+      { thumbnail: "/PathologyShowcase/thumbs/IF4.png", full: "/PathologyShowcase/IF4.png" },
     ],
   },
   {
@@ -78,8 +78,8 @@ IHC染色 是利用抗體與抗原專一性結合的原理，來標定組織或�
     description:
       "**成果照片:**",
     images: [
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/FULL1.png",
-      "https://pub-b524d4be842842c49ece6c562a9d8709.r2.dev/FULL2.png",
+      { thumbnail: "/PathologyShowcase/thumbs/FULL1.png", full: "/PathologyShowcase/FULL1.png" },
+      { thumbnail: "/PathologyShowcase/thumbs/FULL2.png", full: "/PathologyShowcase/FULL2.png" },
     ],
   },
 ];
@@ -130,13 +130,27 @@ const PathologyShowcase = () => {
             }
           </p>
           <div className="image-row">
-            {section.images.map((img, i) => (
-              <div className="image-thumb" key={i}>
-                <Zoom>
-                <img src={img.startsWith("http") ? img : baseUrl + "/images" + img} alt={`展示圖 ${i + 1}`} />
-                </Zoom>
-              </div>
-            ))}
+            {section.images.map((img, i) => {
+  const thumbSrc = img.thumbnail.startsWith("http")
+    ? img.thumbnail
+    : `${baseUrl}${img.thumbnail}`;
+  const fullSrc = img.full.startsWith("http")
+    ? img.full
+    : `${baseUrl}${img.full}`;
+
+  return (
+    <div className="image-thumb" key={i}>
+      <Zoom zoomImg={{ src: fullSrc, alt: `展示圖 ${i + 1}` }}>
+        <img
+          src={thumbSrc}
+          alt={`展示圖 ${i + 1}`}
+          style={{ width: "100%", height: "100%", objectFit: "fill" }}
+        />
+      </Zoom>
+    </div>
+  );
+})}
+
           </div>
         </div>
       ))}
