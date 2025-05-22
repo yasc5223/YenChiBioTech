@@ -23,7 +23,7 @@ const Products = () => {
   const [modelImages, setModelImages] = useState({});
 
   useEffect(() => {
-    fetch(`${baseUrl}/api/production`)
+    fetch(`${baseUrl}/api/production`,{method: 'post'})
       .then((res) => res.json())
       .then((data) => {
         setProductData(data);

@@ -214,7 +214,7 @@ function Navbar() {
         };
       });
 
-    fetch(`${baseUrl}/api/Production`)
+    fetch(`${baseUrl}/api/Production`,{method: 'post'})
       .then((res) => res.json())
       .then((data) => setProductionLinks(processProductionData(data)))
       .catch((err) => console.error("❌ 無法載入產品資料:", err));
