@@ -25,7 +25,9 @@ const ProductDetail = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [cat, sub, model]);
   useEffect(() => {
-    fetch(`${baseUrl}/api/production`)
+    fetch(`${baseUrl}/api/production`,{
+      method: 'POST'
+    })
       .then((res) => res.json())
       .then((data) => {
         const detail = data?.[cat]?.[sub]?.[model]?.Information;
@@ -274,17 +276,10 @@ const ProductDetail = () => {
         >
           {(info.Description || "").replace(/\n/g, "\n\n")}
         </ReactMarkdown>
-
-        {specImageUrl && (
-          <div className="mt-4">
-            <img
-              src={specImageUrl}
-              alt="產品規格圖"
-              className="img-fluid border rounded"
-              onError={(e) => (e.currentTarget.style.display = "none")}
-            />
-          </div>
-        )}
+        <div
+  className="specification"
+  dangerouslySetInnerHTML={{ __html: info?.Specification || "" }}
+></div>
       </div>
     </div>
   );

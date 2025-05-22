@@ -51,4 +51,50 @@
     object-fit: fill; /* 手機仍撐滿容器 */
     height: 100%;
   }
+  .inner table {
+    font-size: 13px;
+  }
+  
+  .inner th, .inner td {
+    padding: 6px 8px;
+  }
+}
+.inner {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0; /* 移除自動邊距使表格靠左 */
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.inner table {
+  width: auto; /* 改為自動寬度 */
+  border-collapse: collapse;
+  margin: 0; /* 移除自動邊距使表格靠左 */
+  background-color: rgba(245, 245, 245, 0.7); /* 70% 透明度的淺灰色背景 */
+}
+
+.inner th, .inner td {
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+  border: 1px solid rgba(224, 224, 224, 0.7); /* 邊框也設為70%透明 */
+}
+
+.inner th {
+  background-color: rgba(230, 230, 230, 0.7); /* 表頭背景70%透明 */
+  color: #7f7f7f;
+  font-size: 14px;
+  font-weight: normal;
+  text-align: center;
+}
+
+.inner td {
+  color: #7f7f7f;
+  font-size: 14px;
+  line-height: 1.4;
+  background-color: rgba(255, 255, 255, 0.7); /* 表格內容區域也設為70%透明 */
+}
+
+.inner thead tr:first-child th:first-child {
+  text-align: left;
 }
