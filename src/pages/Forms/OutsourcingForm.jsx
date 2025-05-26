@@ -83,7 +83,7 @@ const OutsourcingForm = () => {
     setSubmitting(true);
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/outsourcing`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/sendForm`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
