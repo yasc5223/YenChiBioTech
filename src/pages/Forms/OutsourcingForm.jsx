@@ -56,14 +56,21 @@ const OutsourcingForm = () => {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+const handleQuantityChange = (name, qty) => {
+  const updated = form.services.map((s) =>
+    s.name === name ? { ...s, quantity: qty } : s
+  );
+  setForm({ ...form, services: updated });
+};
+const handleServiceChange = (e) => {
+  const { value, checked } = e.target;
+  const updatedServices = checked
+    ? [...form.services, { name: value, quantity: 1 }]
+    : form.services.filter((s) => s.name !== value); // ← 修正重點在這
 
-  const handleServiceChange = (e) => {
-    const { value, checked } = e.target;
-    const updated = checked
-      ? [...form.services, value]
-      : form.services.filter((v) => v !== value);
-    setForm({ ...form, services: updated });
-  };
+  setForm({ ...form, services: updatedServices });
+};
+
 
   const validate = () => {
     const newErrors = {};
@@ -82,12 +89,18 @@ const OutsourcingForm = () => {
 
     setSubmitting(true);
     try {
+    // 🪄 將 services object 陣列轉換成字串陣列
+    const formToSubmit = {
+      ...form,
+      services: form.services.map((s) => `${s.name} x ${s.quantity}`),
+    };
+
       const res = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/api/sendForm`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify(formToSubmit),
         }
       );
 
@@ -295,30 +308,41 @@ const OutsourcingForm = () => {
           ))}
 
           <div className="mb-4">
-            <label className="form-label fw-bold">委託需求（可複選）*</label>
-            <div className="row">
-              {servicesList.map((s, idx) => (
-                <div className="col-md-6" key={idx}>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value={s}
-                      checked={form.services.includes(s)}
-                      onChange={handleServiceChange}
-                      id={`service-${idx}`}
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor={`service-${idx}`}
-                    >
-                      {s}
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+  <label className="form-label fw-bold">委託需求（可複選）*</label>
+  <div className="row">
+    {servicesList.map((s, idx) => {
+      const selected = form.services.find((srv) => srv.name === s);
+      return (
+        <div className="col-md-6 d-flex align-items-center mb-2" key={idx}>
+          <input
+            className="form-check-input me-2"
+            type="checkbox"
+            value={s}
+            checked={!!selected}
+            onChange={handleServiceChange}
+            id={`service-${idx}`}
+          />
+          <label className="form-check-label me-2" htmlFor={`service-${idx}`}>
+            {s}
+          </label>
+          {selected && (
+            <input
+              type="number"
+              className="form-control form-control-sm"
+              style={{ width: "80px" }}
+              min="1"
+              value={selected.quantity}
+              onChange={(e) =>
+                handleQuantityChange(s, Math.max(1, Number(e.target.value)))
+              }
+            />
+          )}
+        </div>
+      );
+    })}
+  </div>
+</div>
+
 
           <div className="mb-4">
             <label className="form-label fw-bold">其他需求詢問</label>
