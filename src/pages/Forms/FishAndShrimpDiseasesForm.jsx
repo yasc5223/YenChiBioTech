@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import "./FishAndShrimpDiseasesForm.css";
 
@@ -19,6 +19,7 @@ const FishAndShrimpDiseasesForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [servicesList, setServicesList] = useState([]);
   const reCAPTCHAKey = import.meta.env.VITE_RECAPTCHA_KEY;
+  const recaptchaRef = useRef(null);
 
   const fishServicesList = [
     "神經壞死病毒",
@@ -101,6 +102,7 @@ const FishAndShrimpDiseasesForm = () => {
           recaptcha: "",
         });
         setCaptchaToken("");
+        recaptchaRef.current?.reset();
       } else {
         const { error } = await res.json();
         alert(`❌ 表單送出失敗：${error || "伺服器錯誤"}`);
@@ -206,6 +208,7 @@ const FishAndShrimpDiseasesForm = () => {
           <div className="d-flex justify-content-between align-items-start mt-4 flex-wrap gap-3">
             <div>
               <ReCAPTCHA
+                ref={recaptchaRef}
                 sitekey={reCAPTCHAKey}
                 onChange={(token) => setCaptchaToken(token)}
               />

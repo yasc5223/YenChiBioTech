@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import "./BloodBiochemicalAnalysisForm.css";
 
@@ -17,7 +17,8 @@ const BloodBiochemicalAnalysisForm = () => {
   const [captchaToken, setCaptchaToken] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const reCAPTCHAKey = import.meta.env.VITE_RECAPTCHA_KEY;
-
+  const recaptchaRef = useRef(null);
+  const formName = "血液生化檢驗";
   const servicesList = [
     "白蛋白(Albumin)",
     "鹼性破酶(ALP)",
@@ -76,7 +77,7 @@ const BloodBiochemicalAnalysisForm = () => {
     setSubmitting(true);
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/bloodbiochemicalanalysis`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/sendForm`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -95,8 +96,10 @@ const BloodBiochemicalAnalysisForm = () => {
           services: [],
           others: "",
           recaptcha: "",
+          formName: formName
         });
         setCaptchaToken("");
+        recaptchaRef.current?.reset();
       } else {
         const { error } = await res.json();
         alert(`❌ 表單送出失敗：${error || "伺服器錯誤"}`);
@@ -112,7 +115,7 @@ const BloodBiochemicalAnalysisForm = () => {
   return (
     <div className="outsourcing-form-container">
       <div className="paper-style-form p-4 shadow" style={{ maxWidth: "800px", width: "100%", wordWrap: "break-word", overflowWrap: "break-word" }}>
-        <h3 className="mb-4 text-primary text-center">血液生化檢驗</h3>
+        <h3 className="mb-4 text-primary text-center">{formName}</h3>
         <h4 className="text-muted mb-4 text-center">
           <strong>
             檢體準備:血清(serum)，最少準備血清量100ul<br/>每增加一個檢測項目，血清量需增加10 ul
@@ -181,6 +184,7 @@ const BloodBiochemicalAnalysisForm = () => {
           <div className="d-flex justify-content-between align-items-start mt-4 flex-wrap gap-3">
             <div>
               <ReCAPTCHA
+                ref={recaptchaRef}
                 sitekey={reCAPTCHAKey}
                 onChange={(token) => setCaptchaToken(token)}
               />

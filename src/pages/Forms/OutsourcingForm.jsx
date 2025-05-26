@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import "./OutsourcingForm.css";
 import ReactMarkdown from "react-markdown";
@@ -25,6 +25,7 @@ const OutsourcingForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const reCAPTCHAKey = import.meta.env.VITE_RECAPTCHA_KEY;
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const recaptchaRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -103,6 +104,7 @@ const OutsourcingForm = () => {
           recaptcha: "",
         });
         setCaptchaToken("");
+        recaptchaRef.current?.reset();
       } else {
         const { error } = await res.json();
         alert(`❌ 表單送出失敗：${error || "伺服器錯誤"}`);
@@ -332,6 +334,7 @@ const OutsourcingForm = () => {
           <div className="d-flex justify-content-between align-items-start mt-4 flex-wrap gap-3">
             <div>
               <ReCAPTCHA
+                ref={recaptchaRef}
                 sitekey={reCAPTCHAKey}
                 onChange={(token) => setCaptchaToken(token)}
               />

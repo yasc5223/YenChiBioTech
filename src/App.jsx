@@ -12,9 +12,10 @@ import "./transition.css";
 import ProductDetail from "./pages/ProductDetail";
 import Inquiry from "./pages/Inquiry";
 import Footer from "./components/Footer";
-import OutsourcingForm from "./pages/OutsourcingForm";
-import BloodBiochemicalAnalysisForm from "./pages/BloodBiochemicalAnalysisForm";
-import FishAndShrimpDiseasesForm from "./pages/FishAndShrimpDiseasesForm";
+import OutsourcingForm from "./pages/Forms/OutsourcingForm";
+import BloodBiochemicalAnalysisForm from "./pages/Forms/BloodBiochemicalAnalysisForm";
+import FishAndShrimpDiseasesForm from "./pages/Forms/FishAndShrimpDiseasesForm";
+import UrinalysisForm from "./pages/Forms/UrinalysisForm";
 import ScrollToTop from "./components/ScrollToTop";
 import PathologyShowcase from "./pages/PathologyShowcase";
 import "./App.css";
@@ -70,6 +71,10 @@ function App() {
                     <Route
                       path="/services/FishAndShrimpDiseases"
                       element={<FishAndShrimpDiseasesForm />}
+                    />
+                    <Route
+                      path="/services/UrinalysisForm"
+                      element={<UrinalysisForm />}
                     />
                     <Route
                       path="/outsourcing/showcase"
