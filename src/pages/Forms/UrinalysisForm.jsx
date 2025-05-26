@@ -22,10 +22,10 @@ const UrinalysisForm = () => {
   const servicesList = [
     "氯(CL, Chloride)",
     "肌酸酐(Creatinine)",
-    "鈉(Sodium;Na)",
-    "鉀(Potassium;K)",
+    "鈉(Na, Sodium)",
+    "鉀(K, Potassium)",
     "總蛋白(Total Protein)",
-    "尿酸(Uric Acid;UA)",
+    "尿酸(UA, Uric Acid)",
     "微量白蛋白(Microalbumin)",
     "尿素氮(BUN, Blood Urea Nitrogen)"
   ];
