@@ -103,6 +103,7 @@ const UrinalysisForm = () => {
 
   return (
     <div className="outsourcing-form-container">
+      <title>{formName}</title>
       <div className="paper-style-form p-4 shadow" style={{ maxWidth: "800px", width: "100%", wordWrap: "break-word", overflowWrap: "break-word" }}>
         <h3 className="mb-4 text-primary text-center">{formName}</h3>
         <h4 className="text-muted mb-4 text-center">
