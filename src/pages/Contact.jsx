@@ -97,7 +97,7 @@ const Contact = () => {
             <p className="small mb-1">電話: 04-36032292</p>
             <p className="small mb-1">傳真: 04-24637008</p>
             <p className="small mb-1">Email: info@yenchibio.com.tw</p>
-            <p className="small mb-1">地址: 台中市西屯區科園路19號3F301室</p>
+            <p className="small mb-1">地址: 台中市沙鹿區台灣大道六段887號</p>
             <div className="ratio ratio-4x3 rounded overflow-hidden mt-3">
               <iframe
                 title="Google Map"
