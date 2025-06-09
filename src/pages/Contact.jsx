@@ -97,11 +97,11 @@ const Contact = () => {
             <p className="small mb-1">電話: 04-36032292</p>
             <p className="small mb-1">傳真: 04-24637008</p>
             <p className="small mb-1">Email: info@yenchibio.com.tw</p>
-            <p className="small mb-1">地址: 台中市沙鹿區台灣大道六段887號</p>
+            <p className="small mb-1">地址: 433029台中市沙鹿區台灣大道六段887號1樓</p>
             <div className="ratio ratio-4x3 rounded overflow-hidden mt-3">
               <iframe
                 title="Google Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d945.489312234268!2d120.60968806245576!3d24.20365805143973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346915dd2730b653%3A0xe513d48bc91d141e!2zNDA35Y-w54Gj5Y-w5Lit5biC6KW_5bGv5Y2A56eR5ZyS6LevMTnomZ8!5e0!3m2!1szh-TW!2sus!4v1745803013629!5m2!1szh-TW!2sus"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3638.8156038608045!2d120.57809327603276!3d24.213236870849144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346915a416f70e41%3A0x6470344085e8b1d5!2zNDMz5Y-w5Lit5biC5rKZ6bm_5Y2A5Y-w54Gj5aSn6YGT5YWt5q61ODg36Jmf!5e0!3m2!1szh-TW!2stw!4v1749437764768!5m2!1szh-TW!2stw"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

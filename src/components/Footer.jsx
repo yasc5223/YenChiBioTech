@@ -30,11 +30,11 @@ Taiwan (R.O.C.)
             <p className="small mb-1">電話: 04-36032292</p>
             <p className="small mb-1">傳真: 04-24637008</p>
             <p className="small mb-1">Email: info@yenchibio.com.tw</p>
-            <p className="small mb-1">地址: 台中市沙鹿區台灣大道六段887號</p>
+            <p className="small mb-1">地址: 433029台中市沙鹿區台灣大道六段887號1樓</p>
             <p className="small mb-1">
-              3F-301, No. 19, Keyuan Rd. Xitun Dist., Taichung City 407
+              1 F., No. 887, Sec. 6, Taiwan Blvd., Shalu Dist., 
             </p>
-            <p className="small mb-1">Taiwan (R.O.C.)</p>
+            <p className="small mb-1">Taichung City 433029 Taiwan (R.O.C.)</p>
           </div>
 
           {/* 社群連結 
